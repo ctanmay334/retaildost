@@ -1,0 +1,210 @@
+[
+  {
+    "name": "projects/3922885541045152878/screens/add_new_customer",
+    "title": "Add New Customer",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/add_new_customer_screen",
+      "downloadUrl": "assets/stitch_designs/add_new_customer/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/add_new_customer_code",
+      "downloadUrl": "assets/stitch_designs/add_new_customer/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "602",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/add_sale_stock_out",
+    "title": "New Sale - RetailDost Pro",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/add_sale_stock_out_screen",
+      "downloadUrl": "assets/stitch_designs/add_sale_stock_out/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/add_sale_stock_out_code",
+      "downloadUrl": "assets/stitch_designs/add_sale_stock_out/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "653",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/distributor_marketplace_premium",
+    "title": "RetailDost - Market",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/distributor_marketplace_premium_screen",
+      "downloadUrl": "assets/stitch_designs/distributor_marketplace_premium/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/distributor_marketplace_premium_code",
+      "downloadUrl": "assets/stitch_designs/distributor_marketplace_premium/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "402",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/import_contacts",
+    "title": "Import Contact - RetailDost Pro",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/import_contacts_screen",
+      "downloadUrl": "assets/stitch_designs/import_contacts/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/import_contacts_code",
+      "downloadUrl": "assets/stitch_designs/import_contacts/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "632",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/retaildost_pro_add_new_product",
+    "title": "Add New Product - RetailDost Pro",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_add_new_product_screen",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_add_new_product/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_add_new_product_code",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_add_new_product/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "574",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/retaildost_pro_cleaned_ledger_flow",
+    "title": "Customer Ledger - Ramesh Kumar",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_cleaned_ledger_flow_screen",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_cleaned_ledger_flow/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_cleaned_ledger_flow_code",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_cleaned_ledger_flow/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "625",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/retaildost_pro_inventory_dashboard",
+    "title": "RetailDost Pro - Inventory Dashboard",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_inventory_dashboard_screen",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_inventory_dashboard/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_inventory_dashboard_code",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_inventory_dashboard/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "390",
+    "height": "1062",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/retaildost_pro_khata_hub_with_onboarding_actions",
+    "title": "RetailDost Pro - Khata Ledger",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_khata_hub_with_onboarding_actions_screen",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_khata_hub_with_onboarding_actions/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_khata_hub_with_onboarding_actions_code",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_khata_hub_with_onboarding_actions/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "628",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/retaildost_pro_notifications_alerts",
+    "title": "Notifications - RetailDost Pro",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_notifications_alerts_screen",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_notifications_alerts/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_notifications_alerts_code",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_notifications_alerts/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "390",
+    "height": "992",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/retaildost_pro_premium_home_hub_refined",
+    "title": "RetailDost Pro - Business Dashboard",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_premium_home_hub_refined_screen",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_premium_home_hub_refined/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/retaildost_pro_premium_home_hub_refined_code",
+      "downloadUrl": "assets/stitch_designs/retaildost_pro_premium_home_hub_refined/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "390",
+    "height": "884",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/premium_voice_interaction",
+    "title": "RetailDost - Voice Assistant",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/premium_voice_interaction_screen",
+      "downloadUrl": "assets/stitch_designs/premium_voice_interaction/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/premium_voice_interaction_code",
+      "downloadUrl": "assets/stitch_designs/premium_voice_interaction/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "706",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/product_detail_audit_trail",
+    "title": "Product Details - RetailDost Pro",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/product_detail_audit_trail_screen",
+      "downloadUrl": "assets/stitch_designs/product_detail_audit_trail/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/product_detail_audit_trail_code",
+      "downloadUrl": "assets/stitch_designs/product_detail_audit_trail/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "384",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  },
+  {
+    "name": "projects/3922885541045152878/screens/review_confirm_scan",
+    "title": "Review &amp; Confirm Invoice Scan",
+    "screenshot": {
+      "name": "projects/3922885541045152878/files/review_confirm_scan_screen",
+      "downloadUrl": "assets/stitch_designs/review_confirm_scan/screen.png"
+    },
+    "htmlCode": {
+      "name": "projects/3922885541045152878/files/review_confirm_scan_code",
+      "downloadUrl": "assets/stitch_designs/review_confirm_scan/code.html",
+      "mimeType": "text/html"
+    },
+    "width": "655",
+    "height": "1600",
+    "deviceType": "MOBILE"
+  }
+]

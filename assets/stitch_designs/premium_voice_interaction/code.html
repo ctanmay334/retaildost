@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RetailDost - Voice Assistant</title>
+<!-- Google Fonts: Inter for High-Contrast Utility -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#006f62",
+                        "primary-fixed": "#dfe0ff",
+                        "secondary-fixed": "#97f3e2",
+                        "outline-variant": "#c6c5d4",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#94f0df",
+                        "inverse-on-surface": "#f2eff8",
+                        "primary-container": "#283593",
+                        "primary": "#0b1a7d",
+                        "on-tertiary-container": "#f79261",
+                        "surface": "#fbf8ff",
+                        "on-tertiary-fixed": "#351000",
+                        "surface-dim": "#dbd9e1",
+                        "surface-container-low": "#f5f2fb",
+                        "inverse-primary": "#bcc2ff",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e4e1ea",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "surface-bright": "#fbf8ff",
+                        "on-tertiary-fixed-variant": "#793105",
+                        "inverse-surface": "#303036",
+                        "tertiary": "#4c1a00",
+                        "on-surface": "#1b1b21",
+                        "on-surface-variant": "#454652",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#702a00",
+                        "primary-fixed-dim": "#bcc2ff",
+                        "on-background": "#1b1b21",
+                        "secondary": "#006b5e",
+                        "tertiary-fixed": "#ffdbcc",
+                        "outline": "#767683",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#9aa5ff",
+                        "background": "#fbf8ff",
+                        "on-secondary-fixed-variant": "#005047",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "surface-container": "#efedf5",
+                        "surface-variant": "#e4e1ea",
+                        "surface-container-high": "#e9e7f0",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#000c62",
+                        "surface-tint": "#4955b3",
+                        "on-secondary-fixed": "#00201b",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter-mobile": "12px",
+                        "touch-target-min": "56px",
+                        "stack-lg": "24px",
+                        "baseline": "8px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .voice-wave {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            height: 48px;
+        }
+        .wave-bar {
+            width: 4px;
+            background-color: #0b1a7d;
+            border-radius: 2px;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+        .wave-bar:nth-child(1) { height: 16px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(2) { height: 32px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(3) { height: 48px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(4) { height: 32px; animation-delay: 0.4s; }
+        .wave-bar:nth-child(5) { height: 16px; animation-delay: 0.5s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scaleY(0.4); opacity: 0.5; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-md text-on-surface min-h-screen flex flex-col">
+<!-- Top Navigation Anchor (Shared Component) -->
+<header class="flex justify-between items-center px-margin-mobile h-touch-target-min w-full fixed top-0 z-50 bg-surface-container-lowest border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">menu</span>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">RetailDost</h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer">account_circle</span>
+</div>
+</header>
+<!-- Main Content Canvas (The Background Ledger) -->
+<main class="flex-grow pt-20 pb-24 px-margin-mobile space-y-stack-lg">
+<!-- Summary Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl flex items-center justify-between">
+<div class="text-center flex-1">
+<p class="font-label-sm text-label-sm text-error uppercase tracking-wider">You Will Get</p>
+<p class="font-headline-md text-headline-md text-error mt-1">₹12600.0</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Lene Hain (Udhari)</p>
+</div>
+<div class="h-12 w-px bg-outline-variant"></div>
+<div class="text-center flex-1">
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">You Will Give</p>
+<p class="font-headline-md text-headline-md text-secondary mt-1">₹0.0</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Dena Hai (Advance)</p>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant h-14 px-4 rounded-xl flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">group</span>
+<input class="bg-transparent border-none focus:ring-0 flex-grow font-body-md text-on-surface-variant" placeholder="Search or Type customer name..." type="text"/>
+</div>
+<!-- Section Header -->
+<div class="flex justify-between items-center px-1">
+<h2 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest">Active Credit Ledgers</h2>
+<div class="flex items-center gap-1 text-primary cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">import_contacts</span>
+<span class="font-label-lg text-label-lg font-bold">Import</span>
+</div>
+</div>
+<!-- Ledger Items -->
+<div class="space-y-stack-md">
+<!-- Ramesh Kumar -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 bg-error-container text-on-error-container rounded-full flex items-center justify-center font-headline-sm text-headline-sm">R</div>
+<div class="flex-grow">
+<div class="flex justify-between">
+<p class="font-headline-sm text-headline-sm text-on-surface">Ramesh Kumar</p>
+<p class="font-headline-sm text-headline-sm text-error">₹10000.0</p>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Active: 27 May • 10:26 pm <span class="text-error">Maine Diya</span></p>
+</div>
+</div>
+<!-- Aadi Personal Society -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-highest text-on-surface-variant rounded-full flex items-center justify-center font-headline-sm text-headline-sm">A</div>
+<div class="flex-grow">
+<div class="flex justify-between">
+<p class="font-headline-sm text-headline-sm text-on-surface">Aadi Personal Society</p>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant">₹0.0</p>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Active: 27 May • 10:16 pm <span class="text-error">Maine Diya</span></p>
+</div>
+</div>
+</div>
+</main>
+<!-- VOICE ASSISTANT OVERLAY (Bento/Glassmorphism Design) -->
+<div class="fixed inset-0 z-[60] flex items-end justify-center px-4 pb-24 overflow-hidden" id="voice-overlay">
+<!-- Blur Backdrop -->
+<div class="absolute inset-0 bg-inverse-surface/40 backdrop-blur-md"></div>
+<!-- Interactive Assistant Panel -->
+<div class="relative w-full max-w-lg glass-panel rounded-[2rem] p-8 shadow-2xl flex flex-col items-center gap-6 animate-in slide-in-from-bottom-10 duration-500">
+<!-- Close Button -->
+<button class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-highest transition-colors" onclick="document.getElementById('voice-overlay').style.display='none'">
+<span class="material-symbols-outlined text-on-surface-variant">close</span>
+</button>
+<!-- AI Listening Animation -->
+<div class="relative w-24 h-24 flex items-center justify-center bg-primary-container rounded-full shadow-lg">
+<div class="voice-wave">
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+<div class="wave-bar"></div>
+</div>
+<!-- Micro-glow effect -->
+<div class="absolute inset-0 rounded-full bg-primary-container/30 animate-ping"></div>
+</div>
+<div class="text-center">
+<h3 class="font-headline-md text-headline-md text-primary mb-1">RetailDost AI Assistant</h3>
+<p class="font-body-md text-on-surface-variant opacity-80">Listening to Hinglish voice memos...</p>
+</div>
+<!-- Parsed Text Box -->
+<div class="w-full bg-surface-container-highest/50 border-2 border-primary/20 rounded-2xl p-6 text-center shadow-inner">
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight italic">"Ramesh ka 500 ka udhar"</span>
+</div>
+<!-- AI Parsing Status Chips -->
+<div class="flex flex-wrap justify-center gap-2">
+<div class="flex items-center gap-1 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Entity: Ramesh
+                </div>
+<div class="flex items-center gap-1 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Amount: ₹500
+                </div>
+<div class="flex items-center gap-1 px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Type: Udhar
+                </div>
+</div>
+<!-- Quick Suggestions (Bento Grid Style) -->
+<div class="w-full grid grid-cols-2 gap-3 mt-2">
+<button class="flex items-center justify-between p-3 bg-white/60 hover:bg-white border border-outline-variant rounded-xl transition-all">
+<span class="font-label-lg text-label-lg text-on-surface">Pay: Sunita 150</span>
+<span class="material-symbols-outlined text-[18px] text-primary">arrow_forward</span>
+</button>
+<button class="flex items-center justify-between p-3 bg-white/60 hover:bg-white border border-outline-variant rounded-xl transition-all">
+<span class="font-label-lg text-label-lg text-on-surface">Get: Amit 2000</span>
+<span class="material-symbols-outlined text-[18px] text-primary">arrow_forward</span>
+</button>
+</div>
+<!-- Primary Actions -->
+<div class="w-full flex gap-4 mt-4">
+<button class="flex-1 h-touch-target-min border-2 border-outline rounded-full font-label-lg text-label-lg text-on-surface-variant hover:bg-surface-container transition-all active:scale-95" onclick="document.getElementById('voice-overlay').style.display='none'">
+                    Cancel
+                </button>
+<button class="flex-1 h-touch-target-min bg-primary text-white rounded-full font-label-lg text-label-lg font-bold shadow-lg hover:bg-primary-container transition-all active:scale-95 flex items-center justify-center gap-2">
+                    Confirm Ledger
+                </button>
+</div>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Shared Component) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-2 pb-2 bg-surface-container-lowest border-t border-outline-variant shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm mt-1">Stock</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-5 py-1 scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-label-sm text-label-sm mt-1">Khata</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-5 py-1 hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm mt-1">Market</span>
+</a>
+</nav>
+<!-- Floating Action Button (Voice Prompting) -->
+<button class="fixed bottom-24 right-6 w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center z-40 active:scale-90 transition-transform" onclick="document.getElementById('voice-overlay').style.display='flex'">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+</body></html>

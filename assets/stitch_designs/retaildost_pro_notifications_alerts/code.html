@@ -1,0 +1,246 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Notifications - RetailDost Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#303036",
+                    "on-primary-fixed": "#000c62",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#00201b",
+                    "background": "#fbf8ff",
+                    "surface-container": "#efedf5",
+                    "surface": "#fbf8ff",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "surface-dim": "#dbd9e1",
+                    "tertiary": "#4c1a00",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#bcc2ff",
+                    "on-tertiary-container": "#f79261",
+                    "surface-container-low": "#f5f2fb",
+                    "secondary-fixed-dim": "#7ad7c6",
+                    "secondary-fixed": "#97f3e2",
+                    "secondary-container": "#94f0df",
+                    "inverse-on-surface": "#f2eff8",
+                    "primary-fixed": "#dfe0ff",
+                    "on-primary-container": "#9aa5ff",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#702a00",
+                    "surface-tint": "#4955b3",
+                    "on-secondary-fixed-variant": "#005047",
+                    "outline": "#767683",
+                    "surface-bright": "#fbf8ff",
+                    "primary": "#0b1a7d",
+                    "secondary": "#006b5e",
+                    "on-background": "#1b1b21",
+                    "primary-container": "#283593",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#e9e7f0",
+                    "outline-variant": "#c6c5d4",
+                    "on-tertiary-fixed": "#351000",
+                    "surface-container-highest": "#e4e1ea",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#1b1b21",
+                    "on-primary-fixed-variant": "#303c9a",
+                    "on-surface-variant": "#454652",
+                    "on-tertiary-fixed-variant": "#793105",
+                    "on-secondary-container": "#006f62",
+                    "tertiary-fixed": "#ffdbcc",
+                    "tertiary-fixed-dim": "#ffb694"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "baseline": "8px",
+                    "touch-target-min": "56px",
+                    "gutter-mobile": "12px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px",
+                    "stack-sm": "8px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fbf8ff; -webkit-font-smoothing: antialiased; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            font-size: 24px;
+        }
+        .filled-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 0; display: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- Top AppBar (Back Action Context) -->
+<header class="bg-surface sticky top-0 z-50 w-full border-b border-outline-variant flex items-center justify-between px-margin-mobile h-touch-target-min">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-low rounded-full transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm text-on-surface">Notifications</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center text-primary hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined">done_all</span>
+</button>
+</header>
+<!-- Tab Navigation -->
+<nav class="sticky top-[56px] z-40 bg-surface px-margin-mobile flex gap-stack-lg border-b border-outline-variant">
+<button class="py-4 border-b-2 border-primary text-primary font-label-lg px-2">All</button>
+<button class="py-4 border-b-2 border-transparent text-on-surface-variant font-label-lg px-2 hover:text-primary transition-colors">Alerts</button>
+<button class="py-4 border-b-2 border-transparent text-on-surface-variant font-label-lg px-2 hover:text-primary transition-colors">Business</button>
+</nav>
+<main class="p-margin-mobile space-y-stack-md max-w-2xl mx-auto">
+<!-- Today Section -->
+<h2 class="font-label-sm text-on-surface-variant uppercase tracking-[0.1em] mt-stack-md text-[11px]">Today</h2>
+<!-- Critical Alert: Low Stock -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl flex items-start gap-4 p-4 shadow-sm hover:border-error/50 transition-colors" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
+<div class="bg-error-container text-on-error-container w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0">
+<span class="material-symbols-outlined filled-icon">warning</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-lg text-error text-xs">LOW STOCK</span>
+<span class="font-label-sm text-xs text-on-surface-variant">2h ago</span>
+</div>
+<p class="font-body-md text-on-surface text-sm mb-3">Tata Salt 1kg - Only 3 left. Stock below safety threshold.</p>
+<button class="bg-primary text-on-primary font-label-lg px-4 h-9 rounded-lg flex items-center justify-center hover:brightness-110 active:scale-95 transition-all text-xs">
+                    Restock Now
+                </button>
+</div>
+</div>
+<!-- Business Alert: Pending Khata -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl flex items-start gap-4 p-4 shadow-sm" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
+<div class="bg-secondary-container text-on-secondary-container w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0">
+<span class="material-symbols-outlined filled-icon">account_balance_wallet</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-lg text-secondary text-xs">PENDING KHATA</span>
+<span class="font-label-sm text-xs text-on-surface-variant">5h ago</span>
+</div>
+<p class="font-body-md text-on-surface text-sm mb-3">Rajesh Kumar ₹1,240 overdue since 5 days.</p>
+<div class="flex gap-2">
+<button class="border border-primary text-primary font-label-lg px-4 h-9 rounded-lg flex items-center justify-center hover:bg-primary-fixed/50 transition-colors text-xs">
+                        Send Reminder
+                    </button>
+</div>
+</div>
+</div>
+<!-- Success Alert: Payment Received -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl flex items-start gap-4 p-4 shadow-sm" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
+<div class="bg-secondary-container text-on-secondary-container w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0 text-secondary">
+<span class="material-symbols-outlined filled-icon">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-lg text-secondary text-xs">PAYMENT RECEIVED</span>
+<span class="font-label-sm text-xs text-on-surface-variant">8h ago</span>
+</div>
+<p class="font-body-md text-on-surface text-sm">Ramesh Kumar paid ₹1,800. Khata balance updated.</p>
+</div>
+</div>
+<!-- Yesterday Section -->
+<h2 class="font-label-sm text-on-surface-variant uppercase tracking-[0.1em] mt-stack-lg text-[11px]">Yesterday</h2>
+<!-- Info Alert: New Distributor -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl flex items-start gap-4 p-4 shadow-sm" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
+<div class="bg-primary-fixed text-primary w-10 h-10 flex items-center justify-center rounded-xl flex-shrink-0">
+<span class="material-symbols-outlined filled-icon">local_shipping</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-lg text-primary text-xs">NEW DISTRIBUTOR</span>
+<span class="font-label-sm text-xs text-on-surface-variant">Yesterday</span>
+</div>
+<p class="font-body-md text-on-surface text-sm mb-3">Shree Venkatesh Agency is now available for wholesale milk delivery.</p>
+<button class="bg-surface-container-high text-on-surface font-label-lg px-4 h-9 rounded-lg inline-flex items-center justify-center hover:bg-surface-container-highest transition-colors text-xs">
+                    View Catalog
+                </button>
+</div>
+</div>
+<!-- Marketplace Promotional Banner -->
+<div class="relative overflow-hidden bg-gradient-to-br from-primary to-[#1a237e] rounded-2xl p-stack-lg text-white mt-stack-lg shadow-lg" style="opacity: 1; transform: translateY(0px); transition: 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
+<div class="relative z-10">
+<h3 class="font-headline-sm text-white mb-2 text-lg">Grow your business</h3>
+<p class="font-body-md text-primary-fixed mb-4 text-sm opacity-90">Stock up on premium pulses. Trending in your locality right now.</p>
+<button class="bg-white text-primary font-label-lg px-6 h-10 rounded-full flex items-center gap-2 hover:bg-primary-fixed transition-colors text-xs font-bold active:scale-95">
+                    Marketplace <span class="material-symbols-outlined text-[18px]">trending_up</span>
+</button>
+</div>
+<!-- Sharp Vector Graphics using CSS and Icon -->
+<div class="absolute -right-6 -bottom-6 w-32 h-32 opacity-15">
+<span class="material-symbols-outlined text-[140px] filled-icon">shopping_bag</span>
+</div>
+<!-- Decorative Vector Elements -->
+<div class="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full -mr-12 -mt-12"></div>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+
+<script>
+        // Micro-interactions for tab switching
+        const tabs = document.querySelectorAll('nav:not(.fixed) button');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('border-primary', 'text-primary');
+                    t.classList.add('border-transparent', 'text-on-surface-variant');
+                });
+                tab.classList.add('border-primary', 'text-primary');
+                tab.classList.remove('border-transparent', 'text-on-surface-variant');
+            });
+        });
+
+        // Refined animation for cards
+        document.querySelectorAll('main > div').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(12px)';
+            setTimeout(() => {
+                el.style.transition = 'all 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 80);
+        });
+    </script>
+
+
+</body></html>

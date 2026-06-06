@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spacing_md">20dp</dimen>
+    <dimen name="text_lg">17sp</dimen>
+    <dimen name="text_xl">22sp</dimen>
+</resources>

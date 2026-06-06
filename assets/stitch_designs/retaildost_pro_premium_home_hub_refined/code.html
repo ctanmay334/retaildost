@@ -1,0 +1,282 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<title>RetailDost Pro - Business Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffdbcc",
+                        "inverse-primary": "#bcc2ff",
+                        "on-background": "#1b1b21",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#702a00",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "tertiary": "#4c1a00",
+                        "primary": "#0b1a7d",
+                        "surface-dim": "#dbd9e1",
+                        "surface-container": "#efedf5",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#e4e1ea",
+                        "secondary-container": "#94f0df",
+                        "on-tertiary-container": "#f79261",
+                        "secondary": "#006b5e",
+                        "surface-container-highest": "#e4e1ea",
+                        "outline": "#767683",
+                        "outline-variant": "#c6c5d4",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1b21",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#303036",
+                        "inverse-on-surface": "#f2eff8",
+                        "secondary-fixed": "#97f3e2",
+                        "background": "#fbf8ff",
+                        "surface-container-high": "#e9e7f0",
+                        "on-primary-container": "#9aa5ff",
+                        "on-secondary-container": "#006f62",
+                        "on-primary-fixed": "#000c62",
+                        "surface-bright": "#fbf8ff",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#dfe0ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#454652",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4955b3",
+                        "primary-container": "#283593",
+                        "on-tertiary-fixed": "#351000",
+                        "on-secondary-fixed-variant": "#005047",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "surface-container-low": "#f5f2fb",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "on-tertiary-fixed-variant": "#793105",
+                        "surface": "#fbf8ff",
+                        "primary-fixed-dim": "#bcc2ff",
+                        "on-secondary-fixed": "#00201b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "touch-target-min": "56px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "6px",
+                        "stack-lg": "20px",
+                        "baseline": "8px",
+                        "gutter-mobile": "16px",
+                        "stack-md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-sm": ["10px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+            display: block;
+        }
+        body {
+            background-color: #fbf8ff;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .pro-card-shadow {
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .sharp-border {
+            border: 1px solid #e4e1ea;
+        }
+        .compact-list-item {
+            padding: 10px 12px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface/95 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-margin-mobile h-touch-target-min">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg overflow-hidden border border-outline-variant shadow-sm">
+<img alt="Suresh Bhai" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXU8InVcJ8gyConkNRuA5o0zK4BjAqt12NwydaOACJQ40V061MRkVrIjH_QR3bK2dnEfBXoBvWmCwq6CJiyUKT1OvKC24wj54zj0g1k5eovB9DdFrGNHDSB5LD7z0ydX6AH8cP0RMdm1vzysOoh9YrhFOELLkoS6RcPm5kt93Gk7ltRiDLm3RqFr2ZIrLdeVrtPNmY4RilkbQ4glU5gP9iqWWGF_2K8o_iijxkSKEeJUWfiaPMShDSpUuvP6Vd6_iZJ8M7nU0YTF4">
+</div>
+<h1 class="font-headline-sm text-primary tracking-tight text-[16px]">RetailDost Pro</h1>
+</div>
+<div class="flex items-center gap-0.5">
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-9 h-9 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+</header>
+<main class="pt-16 pb-24 px-margin-mobile max-w-2xl mx-auto space-y-stack-lg">
+<!-- Hero Section: Daily Revenue -->
+<section class="bg-primary-container rounded-xl p-5 text-on-primary-container relative overflow-hidden shadow-md">
+<div class="relative z-10">
+<p class="font-label-lg text-[11px] opacity-90 uppercase tracking-[0.1em] text-primary-fixed">Today's Sales</p>
+<div class="flex items-baseline gap-2 mt-1">
+<h2 class="font-headline-lg text-[24px] text-white">₹42,850.40</h2>
+<span class="text-secondary-fixed text-[11px] font-label-lg flex items-center bg-white/10 px-1.5 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[12px] mr-0.5">trending_up</span> 12%
+                </span>
+</div>
+<!-- Premium Bar Chart Visualization -->
+<div class="mt-6 h-14 flex items-end justify-between gap-1.5 px-1">
+<div class="bg-white/20 w-full h-[35%] rounded-t-[2px]"></div>
+<div class="bg-white/20 w-full h-[55%] rounded-t-[2px]"></div>
+<div class="bg-white/20 w-full h-[45%] rounded-t-[2px]"></div>
+<div class="bg-white/30 w-full h-[75%] rounded-t-[2px]"></div>
+<div class="bg-white/40 w-full h-[65%] rounded-t-[2px]"></div>
+<div class="bg-white w-full h-[100%] rounded-t-[2px] shadow-sm"></div>
+</div>
+</div>
+</section>
+<!-- Quick Actions Grid -->
+<section class="grid grid-cols-4 gap-3 px-1">
+<button class="flex flex-col items-center gap-1.5 group">
+<div class="w-full aspect-square bg-surface-container-lowest border border-outline-variant rounded-xl flex items-center justify-center text-primary group-active:scale-95 group-hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-[28px]" data-stitch-orig-opacity="0">add_shopping_cart</span>
+</div>
+<span class="text-[11px] font-label-lg text-on-surface-variant">Add Sale</span>
+</button>
+<button class="flex flex-col items-center gap-1.5 group">
+<div class="w-full aspect-square bg-surface-container-lowest border border-outline-variant rounded-xl flex items-center justify-center text-primary group-active:scale-95 group-hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-[28px]">inventory</span>
+</div>
+<span class="text-[11px] font-label-lg text-on-surface-variant">Restock</span>
+</button>
+<button class="flex flex-col items-center gap-1.5 group">
+<div class="w-full aspect-square bg-surface-container-lowest border border-outline-variant rounded-xl flex items-center justify-center text-primary group-active:scale-95 group-hover:bg-primary/5 transition-all">
+<span class="material-symbols-outlined text-[28px]">person_add</span>
+</div>
+<span class="text-[11px] font-label-lg text-on-surface-variant">New Khata</span>
+</button>
+<button class="flex flex-col items-center gap-1.5 group">
+<div class="w-full aspect-square bg-primary-container rounded-xl flex items-center justify-center text-on-primary-container group-active:scale-95 shadow-sm transition-all"><span class="material-symbols-outlined text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1;">qr_code_scanner</span></div>
+<span class="text-[11px] font-label-lg text-primary font-bold">AI Scan</span>
+</button>
+</section>
+<!-- Critical Alerts -->
+<section>
+<div class="flex justify-between items-end mb-2 px-1">
+<h3 class="text-[14px] font-headline-sm text-on-surface">Critical Alerts</h3>
+<button class="text-primary text-[11px] font-label-lg hover:underline mb-0.5">View All</button>
+</div>
+<div class="space-y-2">
+<div class="bg-surface-container-lowest sharp-border compact-list-item rounded-lg flex items-center gap-3 pro-card-shadow">
+<div class="w-9 h-9 bg-tertiary-fixed flex items-center justify-center rounded-md text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+<div class="flex-1">
+<h4 class="text-[12px] font-semibold text-on-surface leading-tight">Low Stock: Amul Gold 1L</h4>
+<p class="text-[10px] text-on-surface-variant">Only 4 units left</p>
+</div>
+<button class="text-primary text-[11px] font-label-lg px-3 py-1 border border-primary rounded-md hover:bg-primary/5 active:scale-95 transition-all">Refill</button>
+</div>
+<div class="bg-surface-container-lowest sharp-border compact-list-item rounded-lg flex items-center gap-3 pro-card-shadow">
+<div class="w-9 h-9 bg-secondary-container flex items-center justify-center rounded-md text-on-secondary-container">
+<span class="material-symbols-outlined text-[18px]">credit_card_off</span>
+</div>
+<div class="flex-1">
+<h4 class="text-[12px] font-semibold text-on-surface leading-tight">Pending Khata: Rajesh Kumar</h4>
+<p class="text-[10px] text-on-surface-variant">₹1,240 overdue • 3d</p>
+</div>
+<button class="text-primary text-[11px] font-label-lg px-3 py-1 border border-primary rounded-md hover:bg-primary/5 active:scale-95 transition-all">Ping</button>
+</div>
+</div>
+</section>
+<!-- Recent Activity -->
+<section>
+<div class="flex justify-between items-end mb-2 px-1">
+<h3 class="text-[14px] font-headline-sm text-on-surface">Recent Activity</h3>
+<button class="text-primary text-[11px] font-label-lg hover:underline mb-0.5">See All</button>
+</div>
+<div class="space-y-2">
+<div class="bg-surface-container-lowest sharp-border compact-list-item rounded-lg pro-card-shadow flex items-center gap-3">
+<div class="w-9 h-9 bg-surface-container flex items-center justify-center rounded-md text-on-surface-variant border border-outline-variant">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<h4 class="text-[12px] font-semibold text-on-surface">Amul Gold 1L × 2</h4>
+<p class="text-[12px] text-error font-bold">₹132.00</p>
+</div>
+<div class="flex justify-between mt-0.5">
+<p class="text-[10px] text-on-surface-variant">Stock Deducted</p>
+<p class="text-[10px] text-outline">2m ago</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest sharp-border compact-list-item rounded-lg pro-card-shadow flex items-center gap-3">
+<div class="w-9 h-9 bg-secondary-container/20 flex items-center justify-center rounded-md text-secondary border border-secondary/20">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<h4 class="text-[12px] font-semibold text-on-surface">Cash Payment</h4>
+<p class="text-[12px] text-secondary font-bold">₹480.00</p>
+</div>
+<div class="flex justify-between mt-0.5">
+<p class="text-[10px] text-on-surface-variant">Completed</p>
+<p class="text-[10px] text-outline">15m ago</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-24 right-6 w-12 h-12 bg-primary text-white rounded-xl shadow-lg flex items-center justify-center z-40 active:scale-90 transition-all hover:brightness-110">
+<span class="material-symbols-outlined text-[24px]">qr_code_scanner</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 bg-surface/95 backdrop-blur-md border-t border-outline-variant flex justify-around items-center h-16 px-gutter-mobile pb-safe">
+<a class="flex flex-col items-center justify-center gap-0.5 group" href="#">
+<div class="bg-primary-container/10 px-4 py-0.5 rounded-full text-primary">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: &quot;FILL&quot; 1;">home</span>
+</div>
+<span class="text-[10px] text-primary font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[26px]">inventory_2</span>
+<span class="text-[10px]">Stock</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[26px]">menu_book</span>
+<span class="text-[10px]">Khata</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-0.5 text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[26px]">storefront</span>
+<span class="text-[10px]">Market</span>
+</a>
+</nav>
+
+
+</body></html>

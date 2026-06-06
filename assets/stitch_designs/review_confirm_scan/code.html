@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Review &amp; Confirm Invoice Scan | RetailDost Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Shared Components Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e4e1ea",
+                    "surface": "#fbf8ff",
+                    "inverse-surface": "#303036",
+                    "on-secondary-fixed-variant": "#005047",
+                    "on-primary-fixed": "#000c62",
+                    "on-surface": "#1b1b21",
+                    "on-primary": "#ffffff",
+                    "background": "#fbf8ff",
+                    "secondary": "#006b5e",
+                    "outline-variant": "#c6c5d4",
+                    "on-primary-container": "#9aa5ff",
+                    "surface-container-low": "#f5f2fb",
+                    "tertiary": "#4c1a00",
+                    "on-secondary-fixed": "#00201b",
+                    "inverse-on-surface": "#f2eff8",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dbd9e1",
+                    "surface-bright": "#fbf8ff",
+                    "on-surface-variant": "#454652",
+                    "on-tertiary-fixed": "#351000",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "on-tertiary-container": "#f79261",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#4955b3",
+                    "tertiary-fixed": "#ffdbcc",
+                    "secondary-fixed": "#97f3e2",
+                    "primary-fixed": "#dfe0ff",
+                    "surface-container-highest": "#e4e1ea",
+                    "surface-container": "#efedf5",
+                    "outline": "#767683",
+                    "on-background": "#1b1b21",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#bcc2ff",
+                    "tertiary-container": "#702a00",
+                    "primary-container": "#283593",
+                    "on-primary-fixed-variant": "#303c9a",
+                    "surface-container-high": "#e9e7f0",
+                    "on-secondary": "#ffffff",
+                    "primary": "#0b1a7d",
+                    "on-tertiary-fixed-variant": "#793105",
+                    "on-secondary-container": "#006f62",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#94f0df",
+                    "secondary-fixed-dim": "#7ad7c6",
+                    "tertiary-fixed-dim": "#ffb694"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "baseline": "8px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "touch-target-min": "56px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fbf8ff;
+        }
+        .bento-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .bento-card:active {
+            transform: scale(0.98);
+        }
+        .scrolling-touch {
+            -webkit-overflow-scrolling: touch;
+        }
+        .stepper-btn:active {
+            transform: scale(0.9);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface flex justify-between items-center px-margin-mobile h-touch-target-min">
+<div class="flex items-center gap-stack-md">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors rounded-full active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-on-surface">Review Invoice</h1>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="A professional studio portrait of a successful Indian shop owner in his 40s. He is wearing a clean, modern polo shirt, looking at the camera with a friendly and confident expression. The background is a softly blurred modern retail environment with warm lighting, symbolizing trust and reliability in a corporate commercial setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjtiocCU7tuyWjCoXor2wiwDQDCj-BhpWc84Kt8mkPKMmYqZZM3n8EGNFNwtGENR_Yy9hslBrENxiOV226KmOoIPgplvSMZPJCmRw88u3YvFuiQLtD8cBfoZhwXEr2Hkxfw2Xq-mBlJgQ5Bt3nIlR7HahWbpxs2BNiLqNKp64zouZjLz2X6t8pwtkpV6Js03r0s_EGMpz09F5tNEsZjPOBkjoaNr92I224yffJ5eUT_-JL7N_SujrL0PZoDlAyctVdMHMHWyeEeKk"/>
+</div>
+</div>
+</header>
+<main class="pt-20 pb-40 px-margin-mobile max-w-2xl mx-auto space-y-6">
+<!-- Invoice Image Preview -->
+<section class="relative overflow-hidden rounded-xl border border-outline-variant bg-surface-container-lowest bento-card">
+<div class="aspect-[16/9] w-full relative">
+<img alt="Original Scan" class="w-full h-full object-cover grayscale-[0.3] brightness-90" data-alt="A high-angle, close-up photograph of a detailed commercial wholesale invoice lying on a clean, dark wood counter. The document is partially filled with printed tables of grocery items, prices, and barcodes. The lighting is bright and industrial, characteristic of a professional shop environment, with a shallow depth of field focusing on the top half of the receipt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR5LX9NxLe3WsUssTwVvMlgiBCNi2RnL3NGeJRnwPAwo5Hckb0dliHu3cwjydbqjPTwNQQ277jtLS1RlGFnb_yJBDLwAWf9TxCIlnKrFHVFrk29tJ5esrapwxTgo5QEaNTsafgHKn9DuUqUg9fzf8bIPNUPdLbu1MjZiKnhIeAA53F9eq0wD5ornpyCivGSjZj8fRBaq8Ogl93wgUwTLX4jAD_HFj7KcOPJF4r0ElonvOrTBwrBDBxDAoltwAsZDU_Auu7pacS9-w"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<button class="absolute bottom-4 right-4 bg-surface/90 backdrop-blur-md text-primary font-label-lg text-label-lg px-4 py-2 rounded-full flex items-center gap-2 shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                    View Full
+                </button>
+</div>
+</section>
+<!-- Confidence Warning -->
+<div class="flex items-center gap-3 p-4 bg-tertiary-fixed text-on-tertiary-fixed rounded-xl border border-tertiary/20">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">info</span>
+<p class="font-label-lg text-label-lg">Please verify items highlighted in yellow.</p>
+</div>
+<!-- Items List -->
+<div class="space-y-4">
+<h2 class="font-label-lg text-label-lg text-outline px-1">EXTRACTED ITEMS (3)</h2>
+<!-- Item 1: High Confidence -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant flex gap-4 items-start relative group">
+<div class="flex-1 space-y-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm-mobile text-on-surface">Aashirvaad Atta (5kg)</h3>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">High Match</span>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-1 pt-2">
+<p class="text-on-surface-variant font-label-sm text-label-sm">Qty: <span class="font-bold text-on-surface">10</span></p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Cost: <span class="font-bold text-on-surface">₹250</span></p>
+<p class="text-on-surface-variant font-label-sm text-label-sm col-span-2">Expiry: <span class="font-medium text-on-surface">2025-11-20</span></p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-outline active:scale-90 transition-transform">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<!-- Item 2: Medium Confidence (Highlighted) -->
+<div class="bg-tertiary-fixed/30 p-4 rounded-xl border-2 border-tertiary-container/40 flex gap-4 items-start relative ring-2 ring-tertiary/5">
+<div class="flex-1 space-y-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm-mobile text-on-surface">Amul Taaza Milk (1L)</h3>
+<div class="flex items-center gap-1 bg-tertiary-container text-on-tertiary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]">warning</span> Check
+                        </div>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-1 pt-2">
+<p class="text-on-surface-variant font-label-sm text-label-sm">Qty: <span class="font-bold text-on-surface">24</span></p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Cost: <span class="font-bold text-on-surface">₹50</span></p>
+<p class="text-on-surface-variant font-label-sm text-label-sm col-span-2">Expiry: <span class="font-medium text-on-surface">2025-06-15</span></p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-highest text-primary active:scale-90 transition-transform shadow-sm">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<!-- Item 3: High Confidence -->
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-outline-variant flex gap-4 items-start relative group">
+<div class="flex-1 space-y-1">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm-mobile text-on-surface">Tata Salt (1kg)</h3>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">High Match</span>
+</div>
+<div class="grid grid-cols-2 gap-x-4 gap-y-1 pt-2">
+<p class="text-on-surface-variant font-label-sm text-label-sm">Qty: <span class="font-bold text-on-surface">50</span></p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Cost: <span class="font-bold text-on-surface">₹18</span></p>
+<p class="text-on-surface-variant font-label-sm text-label-sm col-span-2">Expiry: <span class="font-medium text-on-surface">2026-05-10</span></p>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-outline active:scale-90 transition-transform">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Actions Container -->
+<footer class="fixed bottom-0 w-full bg-surface-container-lowest z-50 border-t border-outline-variant shadow-[0_-8px_24px_rgba(0,0,0,0.05)]">
+<div class="max-w-2xl mx-auto px-margin-mobile py-stack-md space-y-4">
+<!-- Summary Row -->
+<div class="flex justify-between items-center bg-surface-container-high px-4 py-3 rounded-xl">
+<div class="flex flex-col">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Total Items</span>
+<span class="text-on-surface font-headline-sm text-headline-sm-mobile">03</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Invoice Value</span>
+<span class="text-primary font-headline-md text-headline-md tracking-tight">₹4,600.00</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 pb-safe">
+<button class="order-2 md:order-1 h-touch-target-min border-2 border-outline text-on-surface font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-2 hover:bg-surface-container transition-colors active:scale-95">
+<span class="material-symbols-outlined">refresh</span>
+                    Retake Photo
+                </button>
+<button class="order-1 md:order-2 h-touch-target-min bg-primary text-on-primary font-label-lg text-label-lg rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-opacity shadow-lg active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                    Confirm &amp; Add to Stock
+                </button>
+</div>
+</div>
+</footer>
+<!-- FAB for Quick Support (Contextual) -->
+<div class="fixed bottom-32 right-margin-mobile z-40" id="support-fab">
+<button class="w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined">help_center</span>
+</button>
+</div>
+<script>
+        // Simple Interaction logic
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Subtle feedback can be added here
+            });
+        });
+
+        // Hide FAB on scroll down for focused reading
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const fab = document.getElementById('support-fab');
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                fab.style.transform = 'scale(0)';
+                fab.style.opacity = '0';
+            } else {
+                fab.style.transform = 'scale(1)';
+                fab.style.opacity = '1';
+            }
+            lastScroll = currentScroll;
+        });
+    </script>
+</body></html>

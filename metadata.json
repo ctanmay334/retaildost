@@ -1,0 +1,6 @@
+{
+  "name": "KiranaOS",
+  "description": "KiranaOS is an AI-powered operating system for Indian Kirana stores featuring automated Invoice OCR, Voice Khata ledger, and Smart Alerts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

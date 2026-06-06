@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RetailDost Pro - Khata Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201b",
+                        "on-surface": "#1b1b21",
+                        "on-secondary-fixed-variant": "#005047",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#454652",
+                        "primary-container": "#283593",
+                        "inverse-primary": "#bcc2ff",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dfe0ff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#4955b3",
+                        "surface-container-low": "#f5f2fb",
+                        "outline-variant": "#c6c5d4",
+                        "inverse-surface": "#303036",
+                        "tertiary-container": "#702a00",
+                        "surface-variant": "#e4e1ea",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#006f62",
+                        "error": "#d32f2f",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1b1b21",
+                        "secondary": "#006b5e",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fbf8ff",
+                        "surface": "#fbf8ff",
+                        "primary": "#1a237e",
+                        "surface-dim": "#dbd9e1",
+                        "on-primary-container": "#9aa5ff",
+                        "background": "#fbf8ff",
+                        "secondary-container": "#94f0df",
+                        "tertiary": "#4c1a00",
+                        "inverse-on-surface": "#f2eff8",
+                        "success": "#2e7d32",
+                        "success-container": "#e8f5e9"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "4px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "2xl": "16px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "touch-target-min": "56px",
+                        "stack-md": "16px",
+                        "margin-mobile": "16px",
+                        "gutter-mobile": "12px",
+                        "stack-lg": "24px",
+                        "baseline": "8px"
+                    },
+                    "fontFamily": {
+                        "label-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+        .premium-gradient {
+            background: linear-gradient(135deg, #1a237e 0%, #0d1245 100%);
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface min-h-screen pb-32">
+<!-- Premium Header Area -->
+<header class="premium-gradient pt-4 pb-20 px-margin-mobile relative">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-white cursor-pointer">menu</span>
+<h1 class="text-xl font-bold text-white tracking-tight">RetailDost <span class="text-[10px] uppercase bg-white/20 px-1.5 py-0.5 rounded ml-1 font-medium tracking-widest">Pro</span></h1>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-white cursor-pointer">notifications</span>
+<div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined text-white text-xl">account_circle</span>
+</div>
+</div>
+</div>
+<!-- Financial Summary Blocks -->
+<div class="grid grid-cols-2 gap-3 mb-4">
+<div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 shadow-xl">
+<p class="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1">Receivables</p>
+<p class="text-[12px] font-medium text-white/80 mb-2">Lene Hain</p>
+<h2 class="text-xl font-bold text-white tabular-nums">₹ 12,600.00</h2>
+</div>
+<div class="bg-white/5 backdrop-blur-sm p-4 rounded-xl border border-white/5">
+<p class="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-1">Payables</p>
+<p class="text-[12px] font-medium text-white/80 mb-2">Dena Hai</p>
+<h2 class="text-xl font-bold text-white tabular-nums">₹ 0.00</h2>
+</div>
+</div>
+</header>
+<main class="-mt-12 px-margin-mobile flex flex-col gap-stack-lg relative z-10">
+<!-- Search Bar Integrated with Header -->
+<div class="bg-surface-container-lowest rounded-xl shadow-lg border border-outline-variant p-2 flex items-center group transition-all focus-within:ring-2 focus-within:ring-primary/20">
+<span class="material-symbols-outlined text-on-surface-variant ml-2">search</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 font-body-md text-on-surface px-3 placeholder:text-on-surface-variant/60" placeholder="Search customer name..." type="text"/>
+<div class="h-8 w-[1px] bg-outline-variant mx-1"></div>
+<button class="p-2 text-primary">
+<span class="material-symbols-outlined">mic</span>
+</button>
+</div><div class="grid grid-cols-2 gap-3 mt-2">
+<button class="flex items-center justify-center gap-2 bg-primary text-white py-3 px-4 rounded-xl font-bold text-sm shadow-md active:scale-95 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+        Add Customer
+    </button>
+<button class="flex items-center justify-center gap-2 bg-white border border-outline-variant text-on-surface-variant py-3 px-4 rounded-xl font-bold text-sm shadow-sm active:scale-95 transition-all">
+<span class="material-symbols-outlined">contacts</span>
+        Import Contacts
+    </button>
+</div>
+<!-- Professional Filter Chips -->
+<div class="flex items-center gap-2 overflow-x-auto hide-scrollbar -mx-margin-mobile px-margin-mobile">
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-primary text-white font-label-lg shadow-md transition-all">All</button>
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg hover:border-primary transition-all">Udhari</button>
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg hover:border-primary transition-all">Advance</button>
+<button class="whitespace-nowrap px-6 py-2 rounded-full bg-white border border-outline-variant text-on-surface-variant font-label-lg hover:border-primary transition-all">Settled</button>
+</div>
+<!-- Ledger List -->
+<section class="flex flex-col gap-3">
+<div class="flex justify-between items-center mb-1">
+<h3 class="text-[11px] font-bold text-on-surface-variant uppercase tracking-widest">Active Credit Accounts</h3>
+<span class="text-[11px] text-on-surface-variant font-medium">3 CUSTOMERS</span>
+</div>
+<!-- Customer Card 1 -->
+<div class="bg-white border border-outline-variant/60 p-4 rounded-xl flex items-center justify-between shadow-sm active:shadow-md active:scale-[0.99] transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 border border-primary-container/20 text-primary flex items-center justify-center font-bold text-lg">R</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Ramesh Kumar</h4>
+<div class="flex items-center gap-1 text-[11px] text-on-surface-variant/70 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+<span>27 May • 10:26 pm</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1.5 text-error">
+<span class="text-lg font-bold tabular-nums tracking-tight">₹10,000.00</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'wght' 600;">arrow_upward</span>
+</div>
+<span class="text-[10px] font-bold text-error uppercase tracking-tighter">You Gave (GIVE)</span>
+</div>
+</div>
+<!-- Customer Card 2 -->
+<div class="bg-white border border-outline-variant/60 p-4 rounded-xl flex items-center justify-between shadow-sm active:shadow-md active:scale-[0.99] transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container/10 border border-tertiary-container/20 text-tertiary flex items-center justify-center font-bold text-lg">A</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Aadi Personal Soc.</h4>
+<div class="flex items-center gap-1 text-[11px] text-on-surface-variant/70 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+<span>27 May • 10:16 pm</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="text-lg font-bold tabular-nums tracking-tight text-on-surface-variant/40">₹0.00</span>
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<span class="text-[10px] font-bold text-on-surface-variant/60 uppercase tracking-tighter">Settled</span>
+</div>
+</div>
+<!-- Customer Card 3 -->
+<div class="bg-white border border-outline-variant/60 p-4 rounded-xl flex items-center justify-between shadow-sm active:shadow-md active:scale-[0.99] transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-success-container/60 border border-success/20 text-success flex items-center justify-center font-bold text-lg">A</div>
+<div>
+<h4 class="font-bold text-on-surface group-hover:text-primary transition-colors">Amit Singh</h4>
+<div class="flex items-center gap-1 text-[11px] text-on-surface-variant/70 mt-0.5">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+<span>27 May • 10:12 pm</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1.5 text-success">
+<span class="text-lg font-bold tabular-nums tracking-tight">₹450.00</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'wght' 600;">arrow_downward</span>
+</div>
+<span class="text-[10px] font-bold text-success uppercase tracking-tighter">You Got (GET)</span>
+</div>
+</div>
+</section>
+<!-- View Reports Link -->
+<button class="w-full py-4 border-2 border-dashed border-outline-variant rounded-xl flex items-center justify-center gap-2 text-on-surface-variant font-bold text-sm hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">description</span>
+            View Ledger Reports
+        </button>
+</main>
+<!-- Premium FAB for Quick Actions -->
+<button class="fixed bottom-28 right-margin-mobile w-14 h-14 bg-primary text-white rounded-2xl shadow-[0_8px_30px_rgb(26,35,126,0.4)] flex items-center justify-center z-40 active:scale-90 transition-all hover:brightness-110">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">mic</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-2 pb-2 bg-white border-t border-outline-variant/30 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 px-5 py-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">dashboard</span>
+<span class="text-[10px] font-bold uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 px-5 py-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">inventory_2</span>
+<span class="text-[10px] font-bold uppercase mt-1">Stock</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary px-5 py-1 relative" href="#">
+<div class="absolute -top-1 w-8 h-1 bg-primary rounded-full"></div>
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-[10px] font-bold uppercase mt-1">Khata</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/60 px-5 py-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-[22px]">storefront</span>
+<span class="text-[10px] font-bold uppercase mt-1">Market</span>
+</a>
+</nav>
+<!-- Click interaction simulation -->
+<script>
+        document.querySelectorAll('.active\\:scale-\\[0\\.99\\]').forEach(el => {
+            el.addEventListener('click', function() {
+                this.classList.add('bg-surface-container');
+                setTimeout(() => this.classList.remove('bg-surface-container'), 150);
+            });
+        });
+    </script>
+</body></html>

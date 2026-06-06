@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport">
+<title>RetailDost Pro - Inventory Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dbd9e1",
+                        "on-surface": "#1b1b21",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary-container": "#f79261",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "primary-fixed-dim": "#bcc2ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-tint": "#4955b3",
+                        "on-background": "#1b1b21",
+                        "tertiary": "#4c1a00",
+                        "error-container": "#ffdad6",
+                        "background": "#fbf8ff",
+                        "surface-container": "#efedf5",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#9aa5ff",
+                        "on-secondary-fixed": "#00201b",
+                        "inverse-primary": "#bcc2ff",
+                        "secondary": "#006b5e",
+                        "on-tertiary-fixed-variant": "#793105",
+                        "surface": "#fbf8ff",
+                        "on-secondary-container": "#006f62",
+                        "surface-container-low": "#f5f2fb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "tertiary-container": "#702a00",
+                        "outline-variant": "#c6c5d4",
+                        "outline": "#767683",
+                        "surface-bright": "#fbf8ff",
+                        "inverse-surface": "#303036",
+                        "primary": "#0b1a7d",
+                        "surface-variant": "#e4e1ea",
+                        "on-surface-variant": "#454652",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dfe0ff",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "surface-container-highest": "#e4e1ea",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f2eff8",
+                        "primary-container": "#283593",
+                        "on-primary-fixed": "#000c62",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#97f3e2",
+                        "on-secondary-fixed-variant": "#005047",
+                        "secondary-container": "#94f0df",
+                        "surface-container-high": "#e9e7f0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "16px",
+                        "touch-target-min": "56px",
+                        "baseline": "8px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "margin-mobile": "16px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant flex justify-between items-center h-touch-target-min px-margin-mobile">
+<div class="flex items-center gap-stack-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Suresh Bhai Profile" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a middle-aged Indian shopkeeper with a warm, trustworthy smile, set against a blurred background of a well-organized retail store. The lighting is soft and natural, emphasizing a clean and professional corporate aesthetic. The overall mood is one of reliable leadership and modern retail management in a high-contrast digital environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLfo2R644A59ByH0UPnlELEMmRWZv-vb2HeC7V581AgRLTJEl1W17ZBT8XhPabYIo8Nbq774vGJQJq6xBuF9GQACmoq54Eyp1AbMOK9nvWHS5DAuC_My72G4HynORu-fSkNEYsxgEBSDu8PuH00-cj4oFdtfsRSq9VAbMQbpGuJ4OUWN_uDFC9zEg-ouu_9t5n6n4CKkrSlaDzCKYbx1HtU4EB1EE1H0OmHayojueNf4SzY9vOkINjUXVR6Jp3PtPeqCZhJ7-sjoU">
+</div>
+<h1 class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight">Inventory Stock &amp; Alerts</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</header>
+<main class="pt-20 pb-24 px-margin-mobile max-w-2xl mx-auto space-y-stack-lg">
+<!-- Stats Row -->
+<div class="grid grid-cols-2 gap-gutter-mobile">
+<div class="bg-surface-container-low border border-outline-variant p-stack-md rounded-xl flex flex-col items-start gap-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Low Stock Items</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-on-surface">12</span>
+<span class="bg-error text-on-error text-[10px] font-bold px-1.5 py-0.5 rounded uppercase">Alert</span>
+</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-stack-md rounded-xl flex flex-col items-start gap-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Out of Stock</span>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-error font-extrabold">03</span>
+</div>
+</div>
+</div>
+<!-- AI Feature Banner -->
+<section class="relative overflow-hidden bg-primary p-6 rounded-xl shadow-lg border border-primary-container">
+<!-- Decorative Background Element -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-primary-container opacity-30 rounded-full blur-3xl"></div>
+<div class="relative z-10 flex flex-col gap-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h2 class="font-label-lg text-label-lg text-primary-fixed-dim tracking-widest uppercase">AI STOCK SYNC</h2>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-primary leading-tight">Upload Invoice or Bills to Update Stock Instantly</p>
+<div class="grid grid-cols-1 gap-stack-sm mt-2">
+<button class="flex items-center gap-stack-md bg-on-primary text-primary h-touch-target-min px-stack-md rounded-lg font-label-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="">Scan Printed Invoice</span>
+</button>
+<button class="flex items-center gap-stack-md bg-primary-container border border-on-primary-container text-on-primary-container h-touch-target-min px-stack-md rounded-lg font-label-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="">Scan Handwritten Notes</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Search and Filters -->
+<div class="space-y-stack-md">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-touch-target-min pl-12 pr-4 bg-surface-container-highest border-2 border-transparent focus:border-primary focus:ring-0 rounded-xl font-body-md transition-all" placeholder="Search Products" type="text">
+</div>
+<div class="flex gap-stack-sm overflow-x-auto hide-scrollbar pb-1">
+<button class="bg-primary text-on-primary px-stack-md py-2 rounded-full font-label-sm whitespace-nowrap">All</button>
+<button class="bg-surface-container-high text-on-surface-variant border border-outline-variant px-stack-md py-2 rounded-full font-label-sm whitespace-nowrap">Low Stock</button>
+<button class="bg-surface-container-high text-on-surface-variant border border-outline-variant px-stack-md py-2 rounded-full font-label-sm whitespace-nowrap">Out of Stock</button>
+<button class="bg-surface-container-high text-on-surface-variant border border-outline-variant px-stack-md py-2 rounded-full font-label-sm whitespace-nowrap">Categories</button>
+</div>
+</div>
+<!-- Product List (Audit View) -->
+<section class="space-y-stack-sm">
+<div class="flex justify-between items-center px-1">
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase">Recent Inventory</h3>
+<span class="text-label-sm font-label-sm text-primary">View All</span>
+</div>
+<!-- List Item 1 -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded-xl flex items-center gap-stack-md hover:bg-surface-container-low transition-colors group">
+<div class="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Aashirvaad Atta" class="w-full h-full object-cover" data-alt="A clean, high-resolution product photography shot of a premium whole wheat flour package, displayed on a minimalist white surface. The lighting is bright and even, typical of a modern e-commerce catalogue. The brand elements are clear, conveying a sense of quality and essential household staples in a sophisticated light-mode UI style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXhId5LCjBS6V2K1z67Ai8snqcSk3YPNWP8ryb2hGHwasr-FMqYijn1WgUHLORqJqOMhOyNUME4c_ZdFpEK2NWs7jBl28ZHq2kUq6dvrGN8AsNKl9scGGUD-lRgnb6ByXxGwjcKe8c7SKmplsqjVFxyh4_FUKBmKCqiOJv-qt-Pg_59dm-A9MbGbvQ_bF4DTng5ma1_JvF1v3jQ99vyQjS9pTy15IE6Xj1XMoNOiI3RpulG0FFKLzmhis_tFZCDdmSvhUX78mH93U">
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Aashirvaad Atta (5kg)</h4>
+<p class="text-label-sm font-label-sm text-outline">ITC • Staples</p>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface">₹285.0</p>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<span class="text-label-sm font-label-sm px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded">Stock: 15</span>
+<button class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded-xl flex items-center gap-stack-md hover:bg-surface-container-low transition-colors group">
+<div class="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Amul Milk" class="w-full h-full object-cover" data-alt="A studio product shot of a fresh milk carton with a vibrant blue and white design, showing condensation to suggest coldness. The background is a soft, neutral grey to emphasize the product's freshness and reliability. The visual language is high-contrast and professional, aligning with a corporate retail management dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3qvMtNooWUqVvt_xRKjCtDqWPNLKVkgYfMfPHuWz0kNAZyO0BiMdKT7anPm067X2GY0x6__ld-IyRVbM3n9_3jl2Jb8CoOIeabzsyN4hBrEJL2LonWtvAOELGfP5mSQGMuwqS37-0HrwIlb1p2K9jHJmDmYSJmYc06Da2iImYd3MjDZ7SMEV3Eaj0tGle0KKBLoQjq5M1kbN2hpwQ69yK-2blSVJ9Py8o9oXUuuLc7PrQkwvlwfOu8MVh2eD-ixC60mrqI_j2ngA">
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">Amul Taaza Milk (1L)</h4>
+<p class="text-label-sm font-label-sm text-outline">Amul • Dairy</p>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface">₹54.0</p>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<span class="text-label-sm font-label-sm px-2 py-0.5 bg-error-container text-on-error-container rounded">Stock: 02</span>
+<button class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded-xl flex items-center gap-stack-md hover:bg-surface-container-low transition-colors group">
+<div class="w-16 h-16 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+<img alt="Basmati Rice" class="w-full h-full object-cover" data-alt="A premium bag of Basmati rice with elegant traditional patterns, photographed in a high-key lighting environment. The focus is sharp on the texture of the grains visible through a window in the packaging. The color palette is composed of deep earthy tones and crisp whites, reflecting a professional and high-end grocery store inventory aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA50-ZFWXYUM-qLkPHcPgi8HyH6htpsa9weVlrvoRF80IwOoCQKvZ3cNUSnf87oMT7PeWBigqwuijFMNthvb_JHf6kmgr6FLSDYpSfJHMf_ZovCUSYxHrvs15bzLNcaUZhpsfTufn5U3UYv3c2Nov7Pe87ohdAP60taFInv4UmWQWZElXB9Cp5RdJnCBYyMDqKS1oGUYXQd5SGvayCHZdpHuemavS2oa0VzyL-9uG8ownGniA3n8wVH5nNGXH3Y6gHVnXgGQR500x4">
+</div>
+<div class="flex-grow min-w-0">
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-label-lg text-label-lg text-on-surface truncate">India Gate Basmati (1kg)</h4>
+<p class="text-label-sm font-label-sm text-outline">KRBL • Staples</p>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface">₹145.0</p>
+</div>
+<div class="mt-2 flex items-center justify-between">
+<span class="text-label-sm font-label-sm px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded">Stock: 48</span>
+<button class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for Quick Scan -->
+<button class="fixed right-6 bottom-24 h-14 px-6 rounded-full bg-primary text-on-primary shadow-xl flex items-center gap-2 active:scale-95 transition-transform z-40 border-4 border-surface">
+  <span class="material-symbols-outlined text-[24px]">add</span>
+  <span class="font-label-lg whitespace-nowrap">Add Product</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface border-t border-outline-variant flex justify-around items-center h-[72px] px-2">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-stack-lg py-1 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-label-sm">Stock</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-label-sm">Khata</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm">Market</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.opacity = '0.8';
+            });
+            btn.addEventListener('touchend', function() {
+                this.style.opacity = '1';
+            });
+        });
+    </script>
+
+
+</body></html>

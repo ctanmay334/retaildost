@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>New Sale - RetailDost Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e4e1ea",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f2eff8",
+                        "on-primary-fixed-variant": "#303c9a",
+                        "on-surface-variant": "#454652",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#dfe0ff",
+                        "secondary-container": "#94f0df",
+                        "surface-container-high": "#e9e7f0",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#97f3e2",
+                        "on-secondary-fixed-variant": "#005047",
+                        "primary-container": "#283593",
+                        "on-primary-fixed": "#000c62",
+                        "tertiary-fixed-dim": "#ffb694",
+                        "tertiary-container": "#702a00",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#0b1a7d",
+                        "surface-variant": "#e4e1ea",
+                        "surface-bright": "#fbf8ff",
+                        "inverse-surface": "#303036",
+                        "outline": "#767683",
+                        "outline-variant": "#c6c5d4",
+                        "on-primary-container": "#9aa5ff",
+                        "on-secondary-fixed": "#00201b",
+                        "surface-container": "#efedf5",
+                        "on-error-container": "#93000a",
+                        "background": "#fbf8ff",
+                        "tertiary": "#4c1a00",
+                        "error-container": "#ffdad6",
+                        "surface": "#fbf8ff",
+                        "on-secondary-container": "#006f62",
+                        "surface-container-low": "#f5f2fb",
+                        "on-primary": "#ffffff",
+                        "secondary": "#006b5e",
+                        "on-tertiary-fixed-variant": "#793105",
+                        "inverse-primary": "#bcc2ff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary-container": "#f79261",
+                        "on-surface": "#1b1b21",
+                        "surface-dim": "#dbd9e1",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-tint": "#4955b3",
+                        "on-background": "#1b1b21",
+                        "secondary-fixed-dim": "#7ad7c6",
+                        "primary-fixed-dim": "#bcc2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "touch-target-min": "56px",
+                        "baseline": "8px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "margin-mobile": "16px",
+                        "gutter-mobile": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .item-row { transition: background-color 0.2s ease; }
+        .error-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+        .scrim-overlay { background: rgba(0,0,0,0.4); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- Top AppBar (from JSON guidance) -->
+<header class="fixed top-0 w-full z-50 bg-surface flex justify-between items-center px-margin-mobile h-touch-target-min">
+<div class="flex items-center gap-4">
+<button class="h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<div class="flex flex-col">
+<h1 class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-primary">New Sale</h1>
+<span class="text-label-sm text-on-surface-variant">3 items added</span>
+</div>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container overflow-hidden">
+<img alt="Merchant" class="h-full w-full object-cover" data-alt="A professional headshot of an Indian male shop owner smiling warmly, set against a blurred background of a modern, well-organized retail store. The lighting is bright and high-contrast, emphasizing a trustworthy and professional corporate aesthetic. The color palette is clean with subtle blue undertones, aligning with a premium digital business environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkWOorHF9_td7tmBs-1yhusSU2Z4ozenOWbbhAcMIGSYnYVfdk78xWRmqieWpF36UB8V7yW5Bond0Z0UgSPS6am34AEUOtnvZhhAOx4HGVt6N302gu87Tu05MfUEm2Y7kpMFngpOuW83XRHVdxl_klMqcJ1DlpSth9AcdKM5b55R8ArkFWA9PbLYQ8c4dkD0cedWenQKnDqOpyPzcS4UXITsvX0DFWunW2RMj3Gd9dvWKIlBnMZ5b8WU0DpVMBfYAn3tSLO7ym37k"/>
+</div>
+</header>
+<main class="pt-20 pb-40 px-margin-mobile space-y-stack-lg">
+<!-- Selection Actions Section -->
+<section class="grid grid-cols-1 gap-stack-md">
+<!-- Scan Barcode Button - Premium High-Contrast FAB style -->
+<button class="flex items-center justify-center gap-3 bg-primary text-on-primary h-touch-target-min rounded-xl shadow-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">barcode_scanner</span>
+<span class="font-label-lg text-label-lg">Scan Barcode</span>
+</button>
+<!-- Search Bar -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-touch-target-min pl-12 pr-4 bg-surface-container-low border-2 border-outline-variant rounded-xl focus:border-primary focus:ring-0 transition-colors placeholder:text-outline font-body-md" placeholder="Search products (e.g. Atta, Milk)" type="text"/>
+</div>
+</section>
+<!-- Cart Section -->
+<section class="space-y-stack-md">
+<div class="flex items-center justify-between px-1">
+<h2 class="font-label-lg text-label-lg text-on-surface-variant">CURRENT ITEMS</h2>
+<button class="text-primary font-label-lg text-label-lg">Clear All</button>
+</div>
+<div class="space-y-stack-sm" id="cart-list">
+<!-- Item 1: Aashirvaad Atta -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col gap-3 shadow-sm item-row" id="item-atta">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img alt="Atta" class="w-full h-full object-cover" data-alt="A macro photograph of premium whole wheat flour in a clean, professional food packaging style. The lighting is bright and high-key, highlighting the natural texture and golden hues of the grains. The setting is a minimalist commercial kitchen with soft focus backgrounds, maintaining a high-contrast and reliable professional merchant aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhx62AOk-999X9rpN7heHc2gTgYntDqLU-WsrUJws2xFTVKCBx9gHI8jrl8ur6zb0FVm5ilXaasM9g6NHriJZrcI8RnjXSaQIJL39dl5ypxPVQGk-ckJ7YUofkC0nXdD_0hSz2eHcXSYNsXcB4gSqJXlIcMUIuOeHdvoeZtqjz-vUljJVq4cVKXizy8qMJqlz7VFzg-kvVz8S5eX-wPcHrxAO2FylkvJClxswOCPjJzIfA3ygEG_3TAN9ZD36jNpu6ZGlKF4W67CQ"/>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Aashirvaad Atta 5kg</h3>
+<p class="text-label-sm text-secondary font-medium">12 in stock</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-surface">₹320.00</p>
+<p class="text-label-sm text-outline">₹320/unit</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant">
+<span class="text-label-sm text-on-surface-variant">Quantity</span>
+<div class="flex items-center bg-surface-container-high rounded-full p-1 h-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-container-highest" onclick="updateQty('atta', -1)">
+<span class="material-symbols-outlined text-on-surface text-lg">remove</span>
+</button>
+<span class="w-10 text-center font-bold text-on-surface" id="qty-atta">1</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-container-highest" onclick="updateQty('atta', 1)">
+<span class="material-symbols-outlined text-on-surface text-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 2: Amul Gold -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col gap-3 shadow-sm item-row" id="item-amul">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img alt="Milk" class="w-full h-full object-cover" data-alt="A fresh, chilled carton of premium milk with condensation droplets, emphasizing freshness and quality. The background is a clean, bright white retail shelf with soft, neutral lighting that creates a high-contrast, modern retail environment. The image uses a palette of fresh whites and blues to convey reliability and hygiene for a professional RetailDost OS interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjbm30TNhxFsPPAKKa0qqmLUC9NDqtxvIoPUgHvZAfRm18Wih5HtAxH-D9VUrsTQtyBcW26-lx5iUJxb_EWMBXKqWlCHF2PAxBeuwLE6CWoCVo_He3MsymaL44iKu7oB4tmsdFUc-cPIGLp084GnAtyiAJ0AQCyeznOaEh-hxXQFytCPuzz5n4soWkyX1thysRVk-2-lTVVUmUjNdNzo3ChgQg4898YoZ5EnxsV2JCiGaCpIgHcEGfOA-OzIeOsSKEsYU_15KXXOE"/>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Amul Gold 1L</h3>
+<p class="text-label-sm text-secondary font-medium">8 in stock</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-surface">₹132.00</p>
+<p class="text-label-sm text-outline">₹66/unit</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant">
+<span class="text-label-sm text-on-surface-variant">Quantity</span>
+<div class="flex items-center bg-surface-container-high rounded-full p-1 h-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-container-highest" onclick="updateQty('amul', -1)">
+<span class="material-symbols-outlined text-on-surface text-lg">remove</span>
+</button>
+<span class="w-10 text-center font-bold text-on-surface" id="qty-amul">2</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-container-highest" onclick="updateQty('amul', 1)">
+<span class="material-symbols-outlined text-on-surface text-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Item 3: Tata Salt -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col gap-3 shadow-sm item-row" id="item-tata">
+<div class="flex justify-between items-start">
+<div class="flex gap-3">
+<div class="w-12 h-12 bg-surface-container rounded-lg flex items-center justify-center overflow-hidden">
+<img alt="Salt" class="w-full h-full object-cover" data-alt="A high-quality image of premium iodized salt being poured into a clean glass bowl. The background is a minimalist, modern kitchen surface with soft, diffused daylight. The lighting is bright and high-contrast, focusing on the pure white texture of the salt against a professional and sterile merchant environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ7_Pb78OiiV2EaLBR_k-5fgWVdDWft_JJFppiggAK-keNOJg3TAVnUsYChYPwT98AklEinkNo643ciXMN5-HUs5Doq7kLdARn6NskcebvjGbdXE14fm3U79a66e4lMiLqeJf7WaOrEgSoPExiUzx58DqP5c4UsIaDvykfQGFZZExzLYexLjfYE4ddYGRxCRfMUAd1XCGVZgSbd6krCVe9nrrs-8uHmvKH93EmIEnJ2ZJUpHvpLmZ4qRhSmXDgejYfVSXbQKbEC2c"/>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Tata Salt 1kg</h3>
+<p class="text-label-sm text-secondary font-medium">45 in stock</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-surface">₹28.00</p>
+<p class="text-label-sm text-outline">₹28/unit</p>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-outline-variant">
+<span class="text-label-sm text-on-surface-variant">Quantity</span>
+<div class="flex items-center bg-surface-container-high rounded-full p-1 h-10">
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-container-highest" onclick="updateQty('tata', -1)">
+<span class="material-symbols-outlined text-on-surface text-lg">remove</span>
+</button>
+<span class="w-10 text-center font-bold text-on-surface" id="qty-tata">1</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full active:bg-surface-container-highest" onclick="updateQty('tata', 1)">
+<span class="material-symbols-outlined text-on-surface text-lg">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Stock Policy Messaging -->
+<div class="flex items-start gap-3 bg-surface-container-low p-4 rounded-xl border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-xl">info</span>
+<p class="text-label-sm text-on-surface-variant">Stock will be deducted from your inventory automatically upon confirmation of this sale.</p>
+</div>
+</section>
+</main>
+<!-- Fixed Footer Section -->
+<footer class="fixed bottom-0 w-full z-50 bg-surface shadow-[0_-4px_16px_rgba(0,0,0,0.08)] px-margin-mobile pt-4 pb-8 border-t border-outline-variant">
+<div class="max-w-md mx-auto space-y-4">
+<div class="flex justify-between items-end">
+<div class="flex flex-col">
+<span class="text-label-sm text-on-surface-variant font-medium">GRAND TOTAL</span>
+<span class="font-headline-md text-headline-md text-primary">₹480.00</span>
+</div>
+<button class="flex items-center gap-1 text-primary font-bold active:scale-95 transition-transform py-2 px-3 rounded-lg hover:bg-surface-container-high">
+<span>Add Discount</span>
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<button class="w-full bg-primary text-on-primary h-14 rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all" onclick="completeSale()">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Complete Sale
+            </button>
+</div>
+</footer>
+<!-- Stock Limit Modal (Hidden by default) -->
+<div class="fixed inset-0 z-[100] hidden flex items-center justify-center px-margin-mobile scrim-overlay" id="stock-modal">
+<div class="bg-surface rounded-2xl w-full max-w-sm p-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+<div class="h-16 w-16 bg-error-container rounded-full flex items-center justify-center mx-auto mb-4">
+<span class="material-symbols-outlined text-error text-4xl">inventory_2</span>
+</div>
+<h2 class="text-center font-headline-sm text-headline-sm text-on-surface mb-2">Insufficient Stock</h2>
+<p class="text-center text-on-surface-variant mb-6">You cannot sell more than available stock for this item.</p>
+<button class="w-full h-touch-target-min bg-primary text-on-primary rounded-xl font-label-lg" onclick="closeModal()">Got it</button>
+</div>
+</div>
+<!-- Success Feedback (Hidden) -->
+<div class="fixed inset-0 z-[100] hidden bg-primary flex flex-col items-center justify-center text-on-primary px-margin-mobile" id="success-feedback">
+<div class="animate-bounce mb-6">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-center mb-2">Sale Recorded!</h1>
+<p class="text-body-lg text-center opacity-90 mb-8">Stock levels updated &amp; entry added to Khata.</p>
+<button class="w-full max-w-xs h-touch-target-min bg-on-primary text-primary rounded-xl font-headline-sm" onclick="location.reload()">New Sale</button>
+</div>
+<script>
+        const stockData = {
+            atta: { stock: 12, price: 320, name: "Aashirvaad Atta 5kg" },
+            amul: { stock: 8, price: 66, name: "Amul Gold 1L" },
+            tata: { stock: 45, price: 28, name: "Tata Salt 1kg" }
+        };
+
+        function updateQty(id, delta) {
+            const qtyElement = document.getElementById(`qty-${id}`);
+            const itemCard = document.getElementById(`item-${id}`);
+            let currentQty = parseInt(qtyElement.innerText);
+            let nextQty = currentQty + delta;
+
+            if (nextQty < 1) return;
+
+            if (nextQty > stockData[id].stock) {
+                // Show Error State
+                itemCard.classList.add('error-shake', 'border-error');
+                setTimeout(() => {
+                    itemCard.classList.remove('error-shake', 'border-error');
+                }, 400);
+                showModal();
+                return;
+            }
+
+            qtyElement.innerText = nextQty;
+            calculateTotal();
+            
+            // Subtle feedback
+            itemCard.classList.add('bg-primary-container', 'bg-opacity-5');
+            setTimeout(() => itemCard.classList.remove('bg-primary-container', 'bg-opacity-5'), 200);
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            total += parseInt(document.getElementById('qty-atta').innerText) * stockData.atta.price;
+            total += parseInt(document.getElementById('qty-amul').innerText) * stockData.amul.price;
+            total += parseInt(document.getElementById('qty-tata').innerText) * stockData.tata.price;
+            
+            document.querySelector('.text-primary.font-headline-md').innerText = `₹${total.toFixed(2)}`;
+        }
+
+        function showModal() {
+            document.getElementById('stock-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('stock-modal').classList.add('hidden');
+        }
+
+        function completeSale() {
+            const feedback = document.getElementById('success-feedback');
+            feedback.classList.remove('hidden');
+            feedback.classList.add('animate-in', 'fade-in', 'duration-300');
+            
+            // Haptic simulation
+            if (window.navigator.vibrate) {
+                window.navigator.vibrate([100, 30, 100]);
+            }
+        }
+    </script>
+</body></html>

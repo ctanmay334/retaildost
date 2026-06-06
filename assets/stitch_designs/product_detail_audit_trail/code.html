@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Product Details - RetailDost Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-variant": "#e4e1ea",
+                    "surface": "#fbf8ff",
+                    "inverse-surface": "#303036",
+                    "on-secondary-fixed-variant": "#005047",
+                    "on-primary-fixed": "#000c62",
+                    "on-surface": "#1b1b21",
+                    "on-primary": "#ffffff",
+                    "background": "#fbf8ff",
+                    "secondary": "#006b5e",
+                    "outline-variant": "#c6c5d4",
+                    "on-primary-container": "#9aa5ff",
+                    "surface-container-low": "#f5f2fb",
+                    "tertiary": "#4c1a00",
+                    "on-secondary-fixed": "#00201b",
+                    "inverse-on-surface": "#f2eff8",
+                    "error-container": "#ffdad6",
+                    "on-tertiary": "#ffffff",
+                    "surface-dim": "#dbd9e1",
+                    "surface-bright": "#fbf8ff",
+                    "on-surface-variant": "#454652",
+                    "on-tertiary-fixed": "#351000",
+                    "primary-fixed-dim": "#bcc2ff",
+                    "on-tertiary-container": "#f79261",
+                    "on-error-container": "#93000a",
+                    "surface-tint": "#4955b3",
+                    "tertiary-fixed": "#ffdbcc",
+                    "secondary-fixed": "#97f3e2",
+                    "primary-fixed": "#dfe0ff",
+                    "surface-container-highest": "#e4e1ea",
+                    "surface-container": "#efedf5",
+                    "outline": "#767683",
+                    "on-background": "#1b1b21",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#bcc2ff",
+                    "tertiary-container": "#702a00",
+                    "primary-container": "#283593",
+                    "on-primary-fixed-variant": "#303c9a",
+                    "surface-container-high": "#e9e70",
+                    "on-secondary": "#ffffff",
+                    "primary": "#0b1a7d",
+                    "on-tertiary-fixed-variant": "#793105",
+                    "on-secondary-container": "#006f62",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#94f0df",
+                    "secondary-fixed-dim": "#7ad7c6",
+                    "tertiary-fixed-dim": "#ffb694"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter-mobile": "12px",
+                    "baseline": "8px",
+                    "stack-sm": "8px",
+                    "stack-lg": "24px",
+                    "touch-target-min": "56px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .active-tab-indicator { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md antialiased pb-32">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface flex justify-between items-center px-margin-mobile h-touch-target-min">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95 rounded-full">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline-sm text-headline-sm-mobile text-on-surface">Product Details</h1>
+</div>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-surface-container-high transition-colors active:scale-95 rounded-full">
+<span class="material-symbols-outlined text-primary">edit</span>
+</button>
+</header>
+<main class="mt-touch-target-min px-margin-mobile max-w-2xl mx-auto space-y-stack-lg pt-4">
+<!-- Hero Section: Product Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="relative w-full aspect-square bg-white">
+<img alt="Aashirvaad Atta 5kg" class="w-full h-full object-contain p-stack-lg" data-alt="A premium high-resolution studio photograph of Aashirvaad Atta wheat flour packaging set against a clean white background. The lighting is soft and even, highlighting the vibrant orange and yellow colors of the brand's graphic design. The overall aesthetic is professional, modern, and clinical, reflecting a high-quality retail environment with sharp focus and minimal shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD7ZQ6QheAi-SxTxhFGAmP7wipQVE25ZpwWeEdchp8aOLvx42oMqbtrbGDJSfDiZLXxZLJfL0PM8_TN5vJQO7HLnZTiy-LDcm1fZ0-fZmpOEWO6bLqD4uTLTDtj00FuoIOLsIAcXN3_3HXhiaAj_nP18iS_mZZoIkm2WU4yu43alAwA3m50oZiTt05gryBvqXXl_3Mo-Liiau7ngW55RlpCPr_ex0C74TNA8VJ0GC7nvsodxk9pHPuSkWUY4KMGpopJUmzJSIF1os"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-lg text-label-lg">
+                    Staples
+                </div>
+</div>
+<div class="p-stack-lg bg-surface-container-lowest">
+<h2 class="font-headline-md text-headline-md text-primary">Aashirvaad Atta (5kg)</h2>
+<div class="flex items-center gap-2 mt-2">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SKU:</span>
+<span class="font-label-lg text-label-lg text-on-surface font-mono">SKU-AA-5KG</span>
+</div>
+<p class="mt-4 font-body-md text-body-md text-on-surface-variant italic">
+                    "Premium quality whole wheat flour. High demand item."
+                </p>
+</div>
+</section>
+<!-- Stock Stats Bento Row -->
+<section class="grid grid-cols-2 md:grid-cols-3 gap-gutter-mobile">
+<div class="bg-primary-container text-on-primary-container p-stack-md rounded-xl flex flex-col justify-between min-h-[100px] shadow-sm">
+<span class="font-label-sm text-label-sm opacity-80">Current Stock</span>
+<span class="font-headline-md text-headline-md">15 <small class="text-sm font-normal">units</small></span>
+</div>
+<div class="bg-surface-container-high border border-outline-variant p-stack-md rounded-xl flex flex-col justify-between min-h-[100px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Min Threshold</span>
+<span class="font-headline-md text-headline-md text-error">5</span>
+</div>
+<div class="col-span-2 md:col-span-1 bg-surface-container-lowest border border-outline-variant p-stack-md rounded-xl flex flex-col justify-between min-h-[100px] shadow-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Total Value</span>
+<span class="font-headline-md text-headline-md text-primary">₹4,275</span>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-stack-lg space-y-4 shadow-sm">
+<h3 class="font-label-lg text-label-lg text-primary uppercase tracking-widest border-b border-outline-variant pb-2">Pricing Details</h3>
+<div class="flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Purchase Price</span>
+<span class="font-headline-sm text-headline-sm">₹250</span>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex flex-col text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Selling Price</span>
+<span class="font-headline-sm text-headline-sm">₹285</span>
+</div>
+</div>
+<div class="bg-secondary-container/30 p-stack-md rounded-lg flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-secondary-container font-semibold">Net Margin</span>
+<span class="font-headline-sm text-headline-sm text-secondary">₹35 / unit</span>
+</div>
+</section>
+<!-- Audit Trail / History Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-center">
+<h3 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Stock History</h3>
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<div class="space-y-stack-sm">
+<!-- Entry 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">add_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">Restocked</span>
+<span class="font-label-lg text-label-lg text-secondary">+10 units</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">by Suresh</span>
+<span class="font-label-sm text-label-sm text-outline">Source: OCR Invoice</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">May 28</span>
+</div>
+</div>
+</div>
+<!-- Entry 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 bg-error/10 text-error rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">remove_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">Sale</span>
+<span class="font-label-lg text-label-lg text-error">-2 units</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">by Anil</span>
+<span class="font-label-sm text-label-sm text-outline">Source: Manual</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">May 27</span>
+</div>
+</div>
+</div>
+<!-- Entry 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 transition-transform active:scale-[0.98]">
+<div class="w-12 h-12 bg-secondary/10 text-secondary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">add_circle</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between">
+<span class="font-label-lg text-label-lg text-on-surface">Restocked</span>
+<span class="font-label-lg text-label-lg text-secondary">+15 units</span>
+</div>
+<div class="flex justify-between items-end mt-1">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">by Suresh</span>
+<span class="font-label-sm text-label-sm text-outline">Source: Manual</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">May 25</span>
+</div>
+</div>
+</div>
+</div>
+<button class="w-full py-4 text-center font-label-lg text-label-lg text-primary hover:bg-primary-container/10 transition-colors rounded-lg">
+                View Full Ledger
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Shell) -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface border-t border-outline-variant flex justify-around items-center h-20 px-gutter-mobile">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-90 duration-200 w-16" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-stack-lg py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-sm text-label-sm mt-0.5">Stock</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-90 duration-200 w-16" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-label-sm mt-1">Khata</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors active:scale-90 duration-200 w-16" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-label-sm text-label-sm mt-1">Market</span>
+</a>
+</nav>
+<!-- FAB for Quick Actions -->
+<button class="fixed bottom-24 right-6 w-[64px] h-[64px] bg-primary text-on-primary rounded-full shadow-[0_8px_16px_rgba(11,26,125,0.2)] flex items-center justify-center active:scale-95 transition-transform z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<script>
+        // Micro-interactions for history items
+        document.querySelectorAll('.space-y-stack-sm > div').forEach(item => {
+            item.addEventListener('click', () => {
+                // Subtle feedback ripple or navigation logic
+                console.log('Audit trail item clicked');
+            });
+        });
+
+        // Theme Switcher (Simulation)
+        const toggleTheme = () => {
+            document.documentElement.classList.toggle('dark');
+        };
+    </script>
+</body></html>

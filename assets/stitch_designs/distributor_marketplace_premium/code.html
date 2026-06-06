@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>RetailDost - Market</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      line-height: 1;
+    }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* Subtle Glassmorphism for floating elements */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  </style>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary-fixed": "#00201b",
+                  "secondary-fixed": "#97f3e2",
+                  "on-secondary": "#ffffff",
+                  "surface-container-low": "#f5f2fb",
+                  "on-primary-fixed": "#000c62",
+                  "on-secondary-container": "#006f62",
+                  "on-surface-variant": "#454652",
+                  "on-primary": "#ffffff",
+                  "surface-variant": "#e4e1ea",
+                  "surface-container": "#efedf5",
+                  "on-tertiary": "#ffffff",
+                  "secondary": "#006b5e",
+                  "primary-container": "#283593",
+                  "error": "#ba1a1a",
+                  "surface-dim": "#dbd9e1",
+                  "on-error-container": "#93000a",
+                  "tertiary": "#4c1a00",
+                  "surface": "#fbf8ff",
+                  "secondary-container": "#94f0df",
+                  "primary-fixed-dim": "#bcc2ff",
+                  "surface-container-lowest": "#ffffff",
+                  "on-tertiary-fixed-variant": "#793105",
+                  "primary-fixed": "#dfe0ff",
+                  "on-background": "#1b1b21",
+                  "on-surface": "#1b1b21",
+                  "surface-container-highest": "#e4e1ea",
+                  "on-tertiary-fixed": "#351000",
+                  "tertiary-fixed-dim": "#ffb694",
+                  "outline-variant": "#c6c5d4",
+                  "tertiary-container": "#702a00",
+                  "background": "#fbf8ff",
+                  "surface-tint": "#4955b3",
+                  "on-primary-container": "#9aa5ff",
+                  "on-tertiary-container": "#f79261",
+                  "on-secondary-fixed-variant": "#005047",
+                  "tertiary-fixed": "#ffdbcc",
+                  "on-primary-fixed-variant": "#303c9a",
+                  "surface-bright": "#fbf8ff",
+                  "secondary-fixed-dim": "#7ad7c6",
+                  "outline": "#767683",
+                  "inverse-surface": "#303036",
+                  "inverse-primary": "#bcc2ff",
+                  "on-error": "#ffffff",
+                  "surface-container-high": "#e9e7f0",
+                  "primary": "#0b1a7d",
+                  "inverse-on-surface": "#f2eff8",
+                  "error-container": "#ffdad6"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.125rem",
+                  "lg": "0.25rem",
+                  "xl": "0.5rem",
+                  "full": "0.75rem"
+          },
+          "spacing": {
+                  "gutter-mobile": "12px",
+                  "stack-lg": "24px",
+                  "baseline": "8px",
+                  "stack-sm": "8px",
+                  "stack-md": "16px",
+                  "margin-mobile": "16px",
+                  "touch-target-min": "56px"
+          },
+          "fontFamily": {
+                  "headline-md": ["Inter"],
+                  "headline-lg": ["Inter"],
+                  "body-md": ["Inter"],
+                  "headline-sm": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "label-lg": ["Inter"],
+                  "label-sm": ["Inter"],
+                  "headline-lg-mobile": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                  "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                  "label-lg": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                  "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="sticky top-0 z-50 bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-mobile h-touch-target-min">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden border border-outline-variant">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">store</span>
+</div>
+<h1 class="font-headline-sm text-headline-sm-mobile font-bold text-primary">RetailDost</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[24px]">cloud_done</span>
+</div>
+</header>
+<main class="max-w-md mx-auto px-margin-mobile pt-stack-md space-y-stack-lg">
+<!-- Search & Filters Container -->
+<section class="space-y-stack-md">
+<!-- Search Bar -->
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-[56px] pl-12 pr-4 bg-surface-container-lowest border-2 border-outline-variant rounded-xl focus:border-primary focus:ring-0 transition-all font-body-md placeholder:text-outline-variant" placeholder="Search brands (e.g. Atta, Amul, Maggi)" type="text"/>
+</div>
+<!-- Quick Chips -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-1">
+<button class="flex items-center gap-1.5 px-4 py-2 bg-primary-container text-on-primary-container rounded-full font-label-lg whitespace-nowrap active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">near_me</span> Nearby
+        </button>
+<button class="flex items-center gap-1.5 px-4 py-2 bg-surface-container-highest text-on-surface-variant rounded-full font-label-lg whitespace-nowrap hover:bg-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">trending_up</span> Best Margin
+        </button>
+<button class="flex items-center gap-1.5 px-4 py-2 bg-surface-container-highest text-on-surface-variant rounded-full font-label-lg whitespace-nowrap hover:bg-surface-variant active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span> Fast Delivery
+        </button>
+</div>
+</section>
+<!-- Verified Count -->
+<div class="flex items-center gap-2 py-2">
+<span class="w-2 h-2 bg-secondary rounded-full animate-pulse"></span>
+<p class="font-label-lg text-on-surface-variant uppercase tracking-wider">6 Verified Distributors in Mumbai</p>
+</div>
+<!-- Distributor Hero Cards -->
+<div class="space-y-stack-lg">
+<!-- Card 1: Vikram Seth -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-700" data-alt="A clean and organized wholesale warehouse interior for consumer goods. Large steel shelving units are stacked with boxes of branded staples and grains. The lighting is bright and professional, emphasizing a reliable commercial environment. The overall aesthetic is high-contrast and professional, with deep blues and crisp whites reflecting a trusted distribution business." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHgHdUGrTq7Ih9FVYs2x04F3OINmFhZzL6QQwiM298yzlCN2H7wPL89tI7KZcm04URHhi7PwspRVS-C305cP1XIWZLA0wDGqiqQJhvaYXUd25XiO5weK_YKgDC9-NvL0XN6_okvSJ3qFhwSp6IKbH2GhAVQ6LdyCs96iHL3Es89QOfy4hSYHKv8UuT7D52_YaHpr24uvWHonT6wIbO7y-Wly8_LWPZBkbJC3m2iffJgWsPRGeezHIg8FWZyjgv-gkc-V2D0bSBoaU"/>
+<div class="absolute top-4 right-4 glass-card px-3 py-1.5 rounded-lg border border-white/50 flex flex-col items-center">
+<span class="font-label-sm text-secondary font-bold">₹1,500</span>
+<span class="text-[10px] uppercase font-black text-on-surface-variant">MOQ</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-secondary text-on-secondary px-2 py-0.5 rounded text-[10px] font-bold uppercase flex items-center gap-1 shadow-lg">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verified
+            </span>
+</div>
+</div>
+<div class="p-stack-md space-y-stack-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-primary">Vikram Seth Enterprises</h3>
+<p class="font-label-lg text-on-surface-variant">ITC Staples, Basmati Rice &amp; Grocery</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[16px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg">4.9</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<p class="font-label-sm">CST Wholesaler Market, Shop #23, Mumbai</p>
+</div>
+<div class="pt-2 border-t border-outline-variant/30">
+<p class="text-[10px] uppercase font-bold text-outline tracking-widest mb-2">Official Supplier For:</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-variant rounded-full text-on-surface-variant font-label-sm border border-outline-variant">Aashirvaad</span>
+<span class="px-3 py-1 bg-surface-variant rounded-full text-on-surface-variant font-label-sm border border-outline-variant">Sunfeast</span>
+<span class="px-3 py-1 bg-surface-variant rounded-full text-on-surface-variant font-label-sm border border-outline-variant">Savlon</span>
+</div>
+</div>
+<div class="bg-secondary-container/30 p-3 rounded-lg border border-secondary-container flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">bolt</span>
+<p class="font-label-lg text-on-secondary-container italic">5% extra cash margin on top of raw Basmati bags!</p>
+</div>
+<button class="w-full h-touch-target-min bg-secondary text-on-secondary rounded-xl font-headline-sm flex items-center justify-center gap-3 active:scale-[0.98] transition-all shadow-md mt-2">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+            Chat &amp; Ask Wholesale Margin
+          </button>
+</div>
+</div>
+<!-- Card 2: Balaram Spices -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+<div class="relative h-48 w-full overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A vibrant and detailed close-up of a spice merchant's stall in an Indian wholesale market. Baskets overflow with colorful ground spices like turmeric, chili, and coriander. The lighting is warm and natural, suggesting a high-quality, fresh product range. The overall composition is professional and sharp, suitable for a premium b2b retail platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxbjfqqU8EEdR43WmVK3tP9fLppr9GPddFvqNTxXRq5Hy4himN-kDni3RHPpbnT_tO8mb8jprG3Hn99vhUit1We1lJDK6Fqqbx4LMQPzohyoozVnL0DUWHy24a1wFP-9plQWrBuISuNpQLZZdC6hYILj11NGpEHp-oxTL8uJ_ynt8qC12Mmm65bFIePKcTdcsuBT7VppiTqZhsr2UrVItupAcRIn6LL5waedknGSZN8IwswnrBdWWCNHOw_Ydp7s5T1VaipnIIfAc"/>
+<div class="absolute top-4 right-4 glass-card px-3 py-1.5 rounded-lg border border-white/50 flex flex-col items-center">
+<span class="font-label-sm text-secondary font-bold">₹2,000</span>
+<span class="text-[10px] uppercase font-black text-on-surface-variant">MOQ</span>
+</div>
+<div class="absolute bottom-4 left-4 flex gap-2">
+<span class="bg-secondary text-on-secondary px-2 py-0.5 rounded text-[10px] font-bold uppercase flex items-center gap-1 shadow-lg">
+<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">verified</span> Verified
+            </span>
+</div>
+</div>
+<div class="p-stack-md space-y-stack-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-primary">Balaram Spices &amp; Flour Mills</h3>
+<p class="font-label-lg text-on-surface-variant">Flour/Atta, Local Spices &amp; Masalas</p>
+</div>
+<div class="flex items-center gap-1 bg-surface-container px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[16px] text-amber-500" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-lg">4.6</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<p class="font-label-sm">Mandvi Spices Yard, Galas Shop #18, Mumbai</p>
+</div>
+<div class="pt-2 border-t border-outline-variant/30">
+<p class="text-[10px] uppercase font-bold text-outline tracking-widest mb-2">Official Supplier For:</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-variant rounded-full text-on-surface-variant font-label-sm border border-outline-variant">Fortune</span>
+<span class="px-3 py-1 bg-surface-variant rounded-full text-on-surface-variant font-label-sm border border-outline-variant">Kitchen King</span>
+<span class="px-3 py-1 bg-surface-variant rounded-full text-on-surface-variant font-label-sm border border-outline-variant">Haldi</span>
+</div>
+</div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed p-3 rounded-lg border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">celebration</span>
+<p class="font-label-lg italic">Extra 50 sachet tea masala sample on every bulk spices box!</p>
+</div>
+<button class="w-full h-touch-target-min bg-secondary text-on-secondary rounded-xl font-headline-sm flex items-center justify-center gap-3 active:scale-[0.98] transition-all shadow-md mt-2">
+<span class="material-symbols-outlined text-[24px]">chat</span>
+            Chat &amp; Ask Wholesale Margin
+          </button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-8 h-20 bg-surface border-t border-outline-variant">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-sm text-label-sm">Stock</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-sm text-label-sm">Khata</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 scale-90 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">storefront</span>
+<span class="font-label-sm text-label-sm">Market</span>
+</a>
+</nav>
+<script>
+    // Simple ripple-like effect on buttons
+    document.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        let x = e.clientX - e.target.offsetLeft;
+        let y = e.clientY - e.target.offsetTop;
+        
+        let ripples = document.createElement('span');
+        ripples.style.left = x + 'px';
+        ripples.style.top = y + 'px';
+        this.appendChild(ripples);
+        
+        setTimeout(() => {
+          ripples.remove();
+        }, 1000);
+      });
+    });
+  </script>
+</body></html>
