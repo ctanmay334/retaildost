@@ -1837,7 +1837,7 @@ LEAD_STATEMENT -> SHOW_CONFIRMATION -> RECORDING_SETTLEMENT -> INSERTS_DB -> SYN
 | **JDK** | Java SDK 17 |
 | **Gradle** | Wrapper version 9.4.1 |
 | **Min Android SDK** | API 31 (Android 12) |
-| **Target Android SDK** | API 35 (Android 15) |
+| **Target Android SDK** | API 34 (Android 14) |
 
 ### 11.2 Setup Steps
 1. Clone the project locally:
