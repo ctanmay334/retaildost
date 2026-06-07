@@ -23,7 +23,7 @@ object GeminiClient {
         .writeTimeout(60, TimeUnit.SECONDS)
         .build()
 
-    private const val MODEL_NAME = "gemini-1.5-pro"
+    private const val MODEL_NAME = "gemini-3.5-flash"
 
     // Helper to convert Bitmap to Base64 Jpeg bytes
     fun bitmapToBase64(bitmap: Bitmap): String {

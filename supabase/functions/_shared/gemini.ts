@@ -4,8 +4,8 @@
  * malformed JSON scrubbing, and structured schema validations.
  */
 
-export const GEMINI_1_5_FLASH = "gemini-2.5-flash";
-export const GEMINI_1_5_PRO = "gemini-2.5-pro";
+export const GEMINI_1_5_FLASH = "gemini-3.5-flash";
+export const GEMINI_1_5_PRO = "gemini-3.1-flash-lite";
 
 export interface GeminiRequestOptions {
   model?: string;

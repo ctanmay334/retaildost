@@ -14,7 +14,7 @@ android {
   compileSdk = 35
 
   defaultConfig {
-    applicationId = "com.aistudio.kiranaos.ktmptq"
+    applicationId = "com.kiranaos.retaildost"
     minSdk = 31
     targetSdk = 34
     versionCode = 1

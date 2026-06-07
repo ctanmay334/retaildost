@@ -15,7 +15,7 @@ RetailDost is a highly-scalable, production-grade Android application due to the
 * **Offline-First Storage**: The database layers use local Room caching as the primary source of truth, queuing server writes into a serialized SQL database table queue during network drops.
 * **Granular Background Sync**: Schedules transactional queues with backoff policies using Android WorkManager, draining data safely to PostgreSQL when network connectivity is restored.
 * **Dual-Layered Data Mappings**: Maintains legacy compatibility layers and modern sync-ready Supabase tables concurrently to protect business logic stability.
-* **Edge AI Integration**: Leverages Gemini 1.5 Pro to parse raw unstructured Hinglish billing images or voice notes directly into typed objects.
+* **Edge AI Integration**: Leverages Gemini 3.5 Flash to parse raw unstructured Hinglish billing images or voice notes directly into typed objects.
 * **Secure Session Encryptions**: Access tokens and user details are protected using AES256-SIV/GCM EncryptedSharedPreferences.
 * **Modular Clean Architecture**: Package structure is partitioned strictly package-by-feature under standard presentation, domain, and data layers to scale development teams.
 * **Robust Verification Suites**: Validates UI compositions via Robolectric unit tests and Roborazzi screenshot regression tests.
@@ -1505,7 +1505,7 @@ object GeminiClient {
         }
         val mediaType = "application/json; charset=utf-8".toMediaType()
         val requestBody = requestJson.toString().toRequestBody(mediaType)
-        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=$apiKey"
+        val url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=$apiKey"
         val request = Request.Builder().url(url).post(requestBody).build()
         val response = client.newCall(request).execute()
         response.body?.string()

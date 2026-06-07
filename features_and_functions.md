@@ -10,14 +10,14 @@
 | # | Feature | AI Required | Edge Function | Offline-First | Plan Gate |
 |---|---|---|---|---|---|
 | F1 | Authentication & Profile | ✗ | ✗ | Partial | Free |
-| F2 | Inventory — Invoice OCR (Stock In) | ✅ Gemini 1.5 Flash | `ocr-invoice` | ✅ Queue | Free (5/mo) |
+| F2 | Inventory — Invoice OCR (Stock In) | ✅ Gemini 3.5 Flash / 3.1 / 2.5 | `ocr-invoice` | ✅ Queue | Free (5/mo) |
 | F3 | Sale Record (Manual Stock Out) | ✗ | ✗ | ✅ Queue | Free |
-| F4 | Inventory — Diary OCR (Stock Out) | ✅ Gemini 1.5 Flash | `ocr-diary` | ✅ Queue | Free (5/mo) |
-| F5 | Khata Entry — NLP Voice/Text | ✅ Gemini 1.5 Flash | `khata-nlp` | ✅ Queue | Free |
+| F4 | Inventory — Diary OCR (Stock Out) | ✅ Gemini 3.5 Flash / 3.1 / 2.5 | `ocr-diary` | ✅ Queue | Free (5/mo) |
+| F5 | Khata Entry — NLP Voice/Text | ✅ Gemini 3.5 Flash | `khata-nlp` | ✅ Queue | Free |
 | F6 | Khata Book — Balance View | ✗ | ✗ | ✅ Cache | Free |
 | F7 | Expiry & Low-Stock Alerts | ✗ | `alert-checker` | ✅ Cache | Free |
 | F8 | Distributor Marketplace | ✗ | ✗ | Read cache | Free |
-| F9 | Analytics Dashboard | ✅ Gemini 1.5 Pro | ✗ (in-app client) | ✗ | **Pro** |
+| F9 | Analytics Dashboard | ✅ Gemini 3.5 Flash | ✗ (in-app client) | ✗ | **Pro** |
 | F10 | Offline-First Sync | ✗ | `sync-batch` | Core infra | Free |
 | F11 | Onboarding | ✗ | ✗ | DataStore | Free |
 | F12 | Plan / Paywall | ✗ | (server-side checks) | ✗ | Free/Pro |
@@ -68,7 +68,7 @@ AuthViewModel (HiltViewModel)
 | F2.1 | "Add Stock" → "Scan Invoice" → native CameraX capture |
 | F2.2 | Image uploaded to `invoice-images` bucket: `{store_id}/{timestamp}_{filename}` |
 | F2.3 | Edge Function `ocr-invoice` called with image path + idempotency key |
-| F2.4 | Gemini 1.5 Flash Vision API processes image and returns extracted items |
+| F2.4 | Gemini Flash Vision API processes image and returns extracted items |
 | F2.5 | Extract per line: `item_name`, `quantity`, `unit_label`, `cost_price`, `mrp`, `batch_no`, `expiry_date` |
 | F2.6 | Category-based expiry defaults: biscuits/snacks +6 months, dairy +15 days |
 | F2.7 | Confirmation list returned; low-confidence fields highlighted in amber |
@@ -82,7 +82,7 @@ AuthViewModel (HiltViewModel)
 - **Edge Function:** `ocr-invoice` (Gemini API)
 - **Tables:** `inventory` (upsert), `ocr_jobs` (audit), `idempotency_keys`, `profiles` (counter)
 - **AI:**
-  - **Model:** Gemini 1.5 Flash Vision — structured JSON extraction
+  - **Model:** Gemini 3.5 Flash / 3.1 Flash Lite / 2.5 Flash — structured JSON extraction
 
 ### Android Architecture
 ```
@@ -164,7 +164,7 @@ SaleViewModel (HiltViewModel)
 - **Storage:** `invoice-images` (same bucket)
 - **Edge Function:** `ocr-diary` (Devanagari-aware prompt)
 - **Tables:** `inventory`, `sale_records`, `sale_record_items`, `ocr_jobs`, `ocr_name_mappings`
-- **AI:** Gemini 1.5 Flash
+- **AI:** Gemini 3.5 Flash / 3.1 Flash Lite / 2.5 Flash
 
 ### Android Architecture
 ```
@@ -201,7 +201,7 @@ InventoryViewModel
 - **Edge Function:** `khata-nlp` (Gemini API with Hinglish system prompt)
 - **Tables:** `khata_customers` (upsert), `khata_transactions` (insert), `idempotency_keys`
 - **DB Trigger:** `khata_tx_update_balance` auto-updates customer's `running_balance`
-- **AI:** Gemini 1.5 Flash — Hinglish intent classification
+- **AI:** Gemini 3.5 Flash — Hinglish intent classification
 
 ### Hinglish Intent Reference
 | Input | Intent | Confidence |
@@ -351,13 +351,13 @@ MarketplaceViewModel (HiltViewModel)
 | F9.3 | Top 5 SKUs most at risk of expiry (≤30 days, quantity > 0) |
 | F9.4 | Total Khata outstanding (sum of all positive `running_balance`) |
 | F9.5 | Monthly revenue estimate: `sum(sale_price × quantity)` |
-| F9.6 | AI-generated business insights (3-5 sentence Hinglish/English summary) via Gemini 1.5 Pro |
+| F9.6 | AI-generated business insights (3-5 sentence Hinglish/English summary) via Gemini 3.5 Flash |
 | F9.7 | CSV export of `sale_records` + `khata_transactions` (Pro only) |
 
 ### Backend
 - **Client API Wrapper:** `GeminiClient` (Android in-app generative API call)
 - **Tables:** `sale_records`, `sale_record_items`, `khata_customers`, `inventory`
-- **AI:** Gemini 1.5 Pro — plain-language Hinglish business insights
+- **AI:** Gemini 3.5 Flash — plain-language Hinglish business insights
 - **Plan check:** Enforced client-side and verified via user profile tier
 
 ### Android Architecture
@@ -452,8 +452,9 @@ NetworkObserver (ConnectivityManager Flow)
 
 | Model | Provider | Used In | Purpose |
 |---|---|---|---|
-| `gemini-1.5-flash` | Google | F2, F4, F5 | Invoice / diary OCR & Khata NLP intent parsing |
-| `gemini-1.5-pro` | Google | F9 | Premium Dukaan business insights |
+| `gemini-3.5-flash` | Google | F2, F4, F5, F9 | Invoice/diary OCR, Khata NLP intent parsing, & Business insights (Primary) |
+| `gemini-3.1-flash-lite` | Google | F2, F4 | Invoice/diary OCR (Secondary fallback) |
+| `gemini-2.5-flash` | Google | F2, F4 | Invoice/diary OCR (Tertiary fallback) |
 
 ---
 

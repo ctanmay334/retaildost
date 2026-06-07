@@ -17,11 +17,9 @@ class GeminiVisionService(
 ) {
     companion object {
         /**
-         * CORRECT model string for Gemini 3 Pro as of June 2026.
-         * gemini-3-pro-preview was shut down March 9, 2026.
-         * Always use this exact string.
+         * Default model string for invoice data extraction.
          */
-        const val MODEL = "gemini-3.1-pro-preview"
+        const val MODEL = "gemini-3.5-flash"
         const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
     }
 
@@ -93,7 +91,6 @@ class GeminiVisionService(
     suspend fun extractInvoiceData(base64Image: String): Result<ScannedInvoice> =
         withContext(Dispatchers.IO) {
             val modelsToTry = listOf(
-                MODEL,
                 "gemini-3.5-flash",
                 "gemini-3.1-flash-lite",
                 "gemini-2.5-flash"
