@@ -1,7 +1,7 @@
 # KiranaOS — Features & Functions Reference
 
 > **Living document.** Every feature is mapped to its Supabase backend, AI model, Android architecture components, and offline behaviour.  
-> Platform: Android (Kotlin + Jetpack Compose) · Backend: Supabase · AI: Gemini / Claude / Groq
+> Platform: Android (Kotlin + Jetpack Compose) · Backend: Supabase · AI: Google Gemini
 
 ---
 
@@ -10,14 +10,14 @@
 | # | Feature | AI Required | Edge Function | Offline-First | Plan Gate |
 |---|---|---|---|---|---|
 | F1 | Authentication & Profile | ✗ | ✗ | Partial | Free |
-| F2 | Inventory — Invoice OCR (Stock In) | ✅ Gemini + Claude | `ocr-invoice` | ✅ Queue | Free (5/mo) |
+| F2 | Inventory — Invoice OCR (Stock In) | ✅ Gemini 1.5 Flash | `ocr-invoice` | ✅ Queue | Free (5/mo) |
 | F3 | Sale Record (Manual Stock Out) | ✗ | ✗ | ✅ Queue | Free |
-| F4 | Inventory — Diary OCR (Stock Out) | ✅ Gemini + Claude | `ocr-diary` | ✅ Queue | Free (5/mo) |
-| F5 | Khata Entry — NLP Voice/Text | ✅ Groq Llama 3 | `khata-nlp` | ✅ Queue | Free |
+| F4 | Inventory — Diary OCR (Stock Out) | ✅ Gemini 1.5 Flash | `ocr-diary` | ✅ Queue | Free (5/mo) |
+| F5 | Khata Entry — NLP Voice/Text | ✅ Gemini 1.5 Flash | `khata-nlp` | ✅ Queue | Free |
 | F6 | Khata Book — Balance View | ✗ | ✗ | ✅ Cache | Free |
-| F7 | Expiry & Low-Stock Alerts | ✅ Claude (FCM copy) | `alert-checker` | ✅ Cache | Free |
+| F7 | Expiry & Low-Stock Alerts | ✗ | `alert-checker` | ✅ Cache | Free |
 | F8 | Distributor Marketplace | ✗ | ✗ | Read cache | Free |
-| F9 | Analytics Dashboard | ✅ Claude Sonnet | `analytics-summary` | ✗ | **Pro** |
+| F9 | Analytics Dashboard | ✅ Gemini 1.5 Pro | ✗ (in-app client) | ✗ | **Pro** |
 | F10 | Offline-First Sync | ✗ | `sync-batch` | Core infra | Free |
 | F11 | Onboarding | ✗ | ✗ | DataStore | Free |
 | F12 | Plan / Paywall | ✗ | (server-side checks) | ✗ | Free/Pro |
@@ -68,7 +68,7 @@ AuthViewModel (HiltViewModel)
 | F2.1 | "Add Stock" → "Scan Invoice" → native CameraX capture |
 | F2.2 | Image uploaded to `invoice-images` bucket: `{store_id}/{timestamp}_{filename}` |
 | F2.3 | Edge Function `ocr-invoice` called with image path + idempotency key |
-| F2.4 | Gemini 1.5 Flash Vision API → fallback to Claude claude-sonnet-4-20250514 on failure |
+| F2.4 | Gemini 1.5 Flash Vision API processes image and returns extracted items |
 | F2.5 | Extract per line: `item_name`, `quantity`, `unit_label`, `cost_price`, `mrp`, `batch_no`, `expiry_date` |
 | F2.6 | Category-based expiry defaults: biscuits/snacks +6 months, dairy +15 days |
 | F2.7 | Confirmation list returned; low-confidence fields highlighted in amber |
@@ -79,11 +79,10 @@ AuthViewModel (HiltViewModel)
 
 ### Backend
 - **Storage:** `invoice-images` (private bucket, store-namespaced RLS)
-- **Edge Function:** `ocr-invoice` (Gemini → Claude pipeline)
+- **Edge Function:** `ocr-invoice` (Gemini API)
 - **Tables:** `inventory` (upsert), `ocr_jobs` (audit), `idempotency_keys`, `profiles` (counter)
 - **AI:**
-  - **Primary:** Gemini 1.5 Flash Vision — structured JSON extraction
-  - **Fallback:** Claude claude-sonnet-4-20250514 Vision — same prompt
+  - **Model:** Gemini 1.5 Flash Vision — structured JSON extraction
 
 ### Android Architecture
 ```
@@ -165,7 +164,7 @@ SaleViewModel (HiltViewModel)
 - **Storage:** `invoice-images` (same bucket)
 - **Edge Function:** `ocr-diary` (Devanagari-aware prompt)
 - **Tables:** `inventory`, `sale_records`, `sale_record_items`, `ocr_jobs`, `ocr_name_mappings`
-- **AI:** Gemini 1.5 Flash → Claude claude-sonnet-4-20250514 (same fallback pattern)
+- **AI:** Gemini 1.5 Flash
 
 ### Android Architecture
 ```
@@ -189,7 +188,7 @@ InventoryViewModel
 |---|---|
 | F5.1 | Persistent Khata FAB on home screen |
 | F5.2 | Input: typed text OR mic (Android `SpeechRecognizer` → STT → text) |
-| F5.3 | Text sent to `khata-nlp` Edge Function → Groq Llama 3 70B |
+| F5.3 | Text sent to `khata-nlp` Edge Function |
 | F5.4 | NLP returns `{ intent, customer_name, amount, confidence, raw_input }` |
 | F5.5 | If `confidence < 0.80` → confirmation card: "Did you mean: ₹500 Udhar for Ramesh?" |
 | F5.6 | On confirm: upsert `khata_customers`; insert `khata_transactions` with idempotency key |
@@ -199,10 +198,10 @@ InventoryViewModel
 | F5.10 | Every entry idempotency-keyed (UUID generated client-side before call) |
 
 ### Backend
-- **Edge Function:** `khata-nlp` (Groq Llama 3 70B with Hinglish system prompt)
+- **Edge Function:** `khata-nlp` (Gemini API with Hinglish system prompt)
 - **Tables:** `khata_customers` (upsert), `khata_transactions` (insert), `idempotency_keys`
 - **DB Trigger:** `khata_tx_update_balance` auto-updates customer's `running_balance`
-- **AI:** Groq `llama3-70b-8192` — Hinglish intent classification
+- **AI:** Gemini 1.5 Flash — Hinglish intent classification
 
 ### Hinglish Intent Reference
 | Input | Intent | Confidence |
@@ -352,14 +351,14 @@ MarketplaceViewModel (HiltViewModel)
 | F9.3 | Top 5 SKUs most at risk of expiry (≤30 days, quantity > 0) |
 | F9.4 | Total Khata outstanding (sum of all positive `running_balance`) |
 | F9.5 | Monthly revenue estimate: `sum(sale_price × quantity)` |
-| F9.6 | AI-generated 3-5 sentence Hinglish/English summary via Claude claude-sonnet-4-20250514 |
+| F9.6 | AI-generated business insights (3-5 sentence Hinglish/English summary) via Gemini 1.5 Pro |
 | F9.7 | CSV export of `sale_records` + `khata_transactions` (Pro only) |
 
 ### Backend
-- **Edge Function:** `analytics-summary` (Pro-gated, aggregates + Claude call)
+- **Client API Wrapper:** `GeminiClient` (Android in-app generative API call)
 - **Tables:** `sale_records`, `sale_record_items`, `khata_customers`, `inventory`
-- **AI:** Claude claude-sonnet-4-20250514 — plain-language Hinglish business insight
-- **Plan check:** `profiles.plan = 'pro'` enforced in Edge Function (server-side)
+- **AI:** Gemini 1.5 Pro — plain-language Hinglish business insights
+- **Plan check:** Enforced client-side and verified via user profile tier
 
 ### Android Architecture
 ```
@@ -439,13 +438,13 @@ NetworkObserver (ConnectivityManager Flow)
 | F12.3 | Pro CTA: Razorpay link in Chrome Custom Tab |
 | F12.4 | Post-payment: manual plan upgrade in Supabase dashboard (MVP) |
 
-### Plan Limit Enforcement (server-side in Edge Functions)
+### Plan Limit Enforcement (client-side & edge validation)
 | Limit | Free | Pro | Enforced In |
 |---|---|---|---|
-| OCR scans/month | 5 | Unlimited | `ocr-invoice`, `ocr-diary` |
+| OCR scans/month | 5 | Unlimited | `ocr-invoice`, `ocr-diary` (edge) |
 | WhatsApp reminders | 10/month | Unlimited | Client-side counter |
-| Analytics Dashboard | ✗ (blurred) | ✅ | `analytics-summary` |
-| CSV Export | ✗ | ✅ | Client-side + Edge Function |
+| Analytics Dashboard | ✗ (blurred) | ✅ | Client-side (GeminiClient) |
+| CSV Export | ✗ | ✅ | Client-side |
 
 ---
 
@@ -453,9 +452,8 @@ NetworkObserver (ConnectivityManager Flow)
 
 | Model | Provider | Used In | Purpose |
 |---|---|---|---|
-| `gemini-1.5-flash` | Google | F2, F4 | Invoice + diary image OCR (primary) |
-| `claude-sonnet-4-20250514` | Anthropic | F2, F4, F9 | OCR fallback + analytics Hinglish summary |
-| `llama3-70b-8192` | Groq | F5 | Hinglish NLP intent classification |
+| `gemini-1.5-flash` | Google | F2, F4, F5 | Invoice / diary OCR & Khata NLP intent parsing |
+| `gemini-1.5-pro` | Google | F9 | Premium Dukaan business insights |
 
 ---
 
