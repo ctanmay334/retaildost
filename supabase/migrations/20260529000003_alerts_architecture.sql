@@ -1,5 +1,5 @@
 -- =============================================================================
--- RetailDost (KiranaOS) — Alerts Architecture Migration
+-- RetailDost — Alerts Architecture Migration
 -- Migration: 20260529000003_alerts_architecture.sql
 -- =============================================================================
 

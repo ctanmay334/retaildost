@@ -1,5 +1,5 @@
 -- =============================================================================
--- RetailDost (KiranaOS) — Distributor Marketplace Architecture Migration
+-- RetailDost — Distributor Marketplace Architecture Migration
 -- Migration: 20260529000004_distributor_marketplace.sql
 -- =============================================================================
 

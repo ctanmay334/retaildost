@@ -1,6 +1,6 @@
-# RetailDost (KiranaOS)
+# RetailDost
 
-RetailDost (KiranaOS) is an AI-powered, offline-first operating system designed specifically to empower local grocery and convenience stores (*kirana* stores) across India. It features automated invoice OCR scans, a smart voice-enabled Khata ledger, and proactive stock and credit alerts.
+RetailDost is an AI-powered, offline-first operating system designed specifically to empower local grocery and convenience stores (*kirana* stores) across India. It features automated invoice OCR scans, a smart voice-enabled Khata ledger, and proactive stock and credit alerts.
 
 ## Key Features
 

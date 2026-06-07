@@ -52,7 +52,7 @@ object PdfHelper {
         sb.append(".credit { color: #388E3C; font-weight: bold; }")
         sb.append("</style></head><body>")
         
-        sb.append("<h2>KiranaOS Ledger Statement</h2>")
+        sb.append("<h2>RetailDost Ledger Statement</h2>")
         sb.append("<p><b>Customer:</b> ${customer.name}</p>")
         sb.append("<p><b>Phone:</b> ${customer.phone}</p>")
         sb.append("<p><b>Total Balance:</b> ₹${Math.abs(customer.balance)} ${if (customer.balance >= 0) "(They Owe)" else "(Advance)"}</p>")

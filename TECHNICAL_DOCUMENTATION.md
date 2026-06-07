@@ -1842,7 +1842,7 @@ LEAD_STATEMENT -> SHOW_CONFIRMATION -> RECORDING_SETTLEMENT -> INSERTS_DB -> SYN
 ### 11.2 Setup Steps
 1. Clone the project locally:
    ```bash
-   git clone https://github.com/ctanmay334/kiranaos.git RetailDost
+   git clone https://github.com/ctanmay334/retaildost.git RetailDost
    cd RetailDost
    ```
 2. Open the project folder in Android Studio.

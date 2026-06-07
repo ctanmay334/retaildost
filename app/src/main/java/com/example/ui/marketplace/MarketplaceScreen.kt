@@ -215,7 +215,7 @@ fun MarketplaceScreen(viewModel: KiranaViewModel) {
                                 )
                             }
                             Text(
-                                text = "KiranaOS",
+                                text = "RetailDost",
                                 fontWeight = FontWeight.Bold,
                                 color = primaryIndigo,
                                 fontSize = 20.sp
@@ -683,7 +683,7 @@ fun MarketplaceScreen(viewModel: KiranaViewModel) {
                                         onClick = {
                                             if (isEven) {
                                                 // WhatsApp Chat action
-                                                val msg = "Hello, I found your wholesale business ${dist.name} on KiranaOS. I want to inquire about stocking prices."
+                                                val msg = "Hello, I found your wholesale business ${dist.name} on RetailDost. I want to inquire about stocking prices."
                                                 val encodedMsg = URLEncoder.encode(msg, "UTF-8")
                                                 val url = "https://api.whatsapp.com/send?phone=${dist.phone}&text=$encodedMsg"
                                                 val waIntent = Intent(Intent.ACTION_VIEW).apply {

@@ -511,7 +511,7 @@ fun SettingsScreen(viewModel: KiranaViewModel, onLogout: () -> Unit = {}) {
             title = { Text("Contact Support", fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("Need help with KiranaOS/RetailDost? Reach out directly to our support assistants:")
+                    Text("Need help with RetailDost? Reach out directly to our support assistants:")
                     Text(
                         text = "Phone: +91 9082496721",
                         fontWeight = FontWeight.Bold,

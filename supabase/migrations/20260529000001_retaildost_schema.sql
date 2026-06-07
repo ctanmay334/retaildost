@@ -1,5 +1,5 @@
 -- =============================================================================
--- RetailDost (KiranaOS) — Production PostgreSQL Schema
+-- RetailDost — Production PostgreSQL Schema
 -- Migration: 20260529000001_retaildost_schema.sql
 -- Platform: Supabase (PostgreSQL 17)
 -- Architecture: Offline-first, AI-powered, multi-tenant kirana management SaaS

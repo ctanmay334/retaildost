@@ -1,5 +1,5 @@
 -- =============================================================================
--- RetailDost (KiranaOS) — Storage Buckets + Policies
+-- RetailDost — Storage Buckets + Policies
 -- Migration: 20260529000002_retaildost_storage.sql
 -- =============================================================================
 -- Automates PART 4 STORAGE SETUP — no manual dashboard clicks required.

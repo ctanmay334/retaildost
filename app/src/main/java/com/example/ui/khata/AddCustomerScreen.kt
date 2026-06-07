@@ -354,7 +354,7 @@ fun AddCustomerScreen(
                             modifier = Modifier.size(20.dp)
                         )
                         Text(
-                            text = "This customer data is encrypted and synced to KiranaOS Cloud.",
+                            text = "This customer data is encrypted and synced to RetailDost Cloud.",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.secondary

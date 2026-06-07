@@ -2029,7 +2029,7 @@ fun VoiceAssistantOverlay(viewModel: KiranaViewModel) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "KiranaOS Voice Assistant",
+                    text = "RetailDost Voice Assistant",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary

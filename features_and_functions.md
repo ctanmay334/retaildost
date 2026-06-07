@@ -1,4 +1,4 @@
-# KiranaOS — Features & Functions Reference
+# RetailDost — Features & Functions Reference
 
 > **Living document.** Every feature is mapped to its Supabase backend, AI model, Android architecture components, and offline behaviour.  
 > Platform: Android (Kotlin + Jetpack Compose) · Backend: Supabase · AI: Google Gemini
@@ -502,5 +502,5 @@ NetworkObserver (ConnectivityManager Flow)
 
 ---
 
-*KiranaOS — Stratos Web Developers · Hykr Build Challenge*  
+*RetailDost — Stratos Web Developers · Hykr Build Challenge*  
 *"Build for Suresh Bhai first. The schema doesn't lie. Validate everything."*
