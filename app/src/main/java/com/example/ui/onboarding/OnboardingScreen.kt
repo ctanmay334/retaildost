@@ -2,7 +2,9 @@ package com.example.ui.onboarding
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.*
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -134,9 +136,15 @@ fun OnboardingScreen(
                 }
             }
 
+            val animatedProgress by animateFloatAsState(
+                targetValue = (uiState.currentStep + 1) / 2.0f,
+                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+                label = "OnboardingProgress"
+            )
+
             // Simple line progress indicator
             LinearProgressIndicator(
-                progress = { (uiState.currentStep + 1) / 2.0f },
+                progress = { animatedProgress },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(4.dp),
@@ -187,6 +195,22 @@ fun StoreDetailsStep(
     val businessTypes = listOf("Kirana Store", "General Store", "Wholesale Mart", "Pharmacy", "Supermarket")
     val deepNavy = Color(0xFF0F1B85)
 
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        visible = true
+    }
+
+    val infiniteTransition = rememberInfiniteTransition(label = "PulsingNextButton")
+    val buttonScale by infiniteTransition.animateFloat(
+        initialValue = 0.98f,
+        targetValue = 1.02f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "NextButtonScale"
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -194,133 +218,175 @@ fun StoreDetailsStep(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Tell us about your business",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Set up your digital ledger identities to start managing items and credits.",
-            fontSize = 14.sp,
-            color = Color.Gray,
-            textAlign = TextAlign.Center,
-            lineHeight = 20.sp
-        )
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 0)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 0)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "Tell us about your business",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Set up your digital ledger identities to start managing items and credits.",
+                    fontSize = 14.sp,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 20.sp
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(32.dp))
 
         // Owner Name Field
-        OutlinedTextField(
-            value = uiState.ownerName,
-            onValueChange = viewModel::onOwnerNameChanged,
-            label = { Text("Owner's Name *") },
-            placeholder = { Text("e.g. Ramesh Kumar") },
-            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
-            isError = uiState.ownerNameError != null,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth().testTag("owner_name_input")
-        )
-        if (uiState.ownerNameError != null) {
-            Text(
-                text = uiState.ownerNameError,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
-            )
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 100)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 100)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column {
+                OutlinedTextField(
+                    value = uiState.ownerName,
+                    onValueChange = viewModel::onOwnerNameChanged,
+                    label = { Text("Owner's Name *") },
+                    placeholder = { Text("e.g. Ramesh Kumar") },
+                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = null) },
+                    isError = uiState.ownerNameError != null,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("owner_name_input")
+                )
+                if (uiState.ownerNameError != null) {
+                    Text(
+                        text = uiState.ownerNameError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
+                    )
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Store Name Field
-        OutlinedTextField(
-            value = uiState.storeName,
-            onValueChange = viewModel::onStoreNameChanged,
-            label = { Text("Store Name *") },
-            placeholder = { Text("e.g. Laxmi Traders") },
-            leadingIcon = { Icon(Icons.Default.Storefront, contentDescription = null) },
-            isError = uiState.storeNameError != null,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            keyboardActions = KeyboardActions(onNext = { expanded = true }),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth().testTag("store_name_input")
-        )
-        if (uiState.storeNameError != null) {
-            Text(
-                text = uiState.storeNameError,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
-            )
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 200)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 200)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column {
+                OutlinedTextField(
+                    value = uiState.storeName,
+                    onValueChange = viewModel::onStoreNameChanged,
+                    label = { Text("Store Name *") },
+                    placeholder = { Text("e.g. Laxmi Traders") },
+                    leadingIcon = { Icon(Icons.Default.Storefront, contentDescription = null) },
+                    isError = uiState.storeNameError != null,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(onNext = { expanded = true }),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("store_name_input")
+                )
+                if (uiState.storeNameError != null) {
+                    Text(
+                        text = uiState.storeNameError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
+                    )
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Business Type Dropdown
-        Box(modifier = Modifier.fillMaxWidth()) {
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = it }
-            ) {
-                OutlinedTextField(
-                    value = uiState.businessType,
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text("Business Type *") },
-                    placeholder = { Text("Select Type") },
-                    leadingIcon = { Icon(Icons.Default.Business, contentDescription = null) },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-                    isError = uiState.businessTypeError != null,
-                    shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor()
-                        .testTag("business_type_select")
-                )
-
-                ExposedDropdownMenu(
-                    expanded = expanded,
-                    onDismissRequest = { expanded = false }
-                ) {
-                    businessTypes.forEach { type ->
-                        DropdownMenuItem(
-                            text = { Text(type) },
-                            onClick = {
-                                viewModel.onBusinessTypeChanged(type)
-                                expanded = false
-                            }
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 300)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 300)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    ExposedDropdownMenuBox(
+                        expanded = expanded,
+                        onExpandedChange = { expanded = it }
+                    ) {
+                        OutlinedTextField(
+                            value = uiState.businessType,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Business Type *") },
+                            placeholder = { Text("Select Type") },
+                            leadingIcon = { Icon(Icons.Default.Business, contentDescription = null) },
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+                            isError = uiState.businessTypeError != null,
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .menuAnchor()
+                                .testTag("business_type_select")
                         )
+
+                        ExposedDropdownMenu(
+                            expanded = expanded,
+                            onDismissRequest = { expanded = false }
+                        ) {
+                            businessTypes.forEach { type ->
+                                DropdownMenuItem(
+                                    text = { Text(type) },
+                                    onClick = {
+                                        viewModel.onBusinessTypeChanged(type)
+                                        expanded = false
+                                    }
+                                )
+                            }
+                        }
                     }
+                }
+                if (uiState.businessTypeError != null) {
+                    Text(
+                        text = uiState.businessTypeError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
+                    )
                 }
             }
         }
-        if (uiState.businessTypeError != null) {
-            Text(
-                text = uiState.businessTypeError,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
-            )
-        }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(32.dp))
 
-        Button(
-            onClick = viewModel::nextStep,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(54.dp)
-                .testTag("onboarding_step_zero_next_button"),
-            shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = deepNavy)
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 400)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 400)),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Next: Location Details", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
+            Button(
+                onClick = viewModel::nextStep,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(54.dp)
+                    .graphicsLayer {
+                        scaleX = buttonScale
+                        scaleY = buttonScale
+                    }
+                    .testTag("onboarding_step_zero_next_button"),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = deepNavy)
+            ) {
+                Text("Next: Location Details", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.width(8.dp))
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null)
+            }
         }
     }
 }
@@ -339,6 +405,22 @@ fun LocationStep(
     val activeColor = Color(0xFF0F1B85)
     var stateExpanded by remember { mutableStateOf(false) }
 
+    var visible by remember { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        visible = true
+    }
+
+    val infiniteTransition = rememberInfiniteTransition(label = "PulsingCompleteButton")
+    val buttonScale by infiniteTransition.animateFloat(
+        initialValue = 0.98f,
+        targetValue = 1.02f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "CompleteButtonScale"
+    )
+
     val indianStates = listOf(
         "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
         "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
@@ -356,120 +438,152 @@ fun LocationStep(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = "Where is your store?",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = "Enter location details to complete configuration.",
-            fontSize = 14.sp,
-            color = Color.Gray,
-            textAlign = TextAlign.Center,
-            lineHeight = 20.sp
-        )
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 0)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 0)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    text = "Where is your store?",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Enter location details to complete configuration.",
+                    fontSize = 14.sp,
+                    color = Color.Gray,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 20.sp
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(24.dp))
 
         // State Dropdown (Indian States)
-        Box(modifier = Modifier.fillMaxWidth()) {
-            ExposedDropdownMenuBox(
-                expanded = stateExpanded,
-                onExpandedChange = { stateExpanded = it }
-            ) {
-                OutlinedTextField(
-                    value = uiState.state,
-                    onValueChange = {},
-                    readOnly = true,
-                    label = { Text("State *") },
-                    placeholder = { Text("Select State") },
-                    leadingIcon = { Icon(Icons.Default.Map, contentDescription = null) },
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = stateExpanded) },
-                    isError = uiState.stateError != null,
-                    shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor()
-                        .testTag("state_dropdown")
-                )
-
-                ExposedDropdownMenu(
-                    expanded = stateExpanded,
-                    onDismissRequest = { stateExpanded = false }
-                ) {
-                    indianStates.forEach { stateName ->
-                        DropdownMenuItem(
-                            text = { Text(stateName) },
-                            onClick = {
-                                viewModel.onStateChanged(stateName)
-                                stateExpanded = false
-                            }
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 100)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 100)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    ExposedDropdownMenuBox(
+                        expanded = stateExpanded,
+                        onExpandedChange = { stateExpanded = it }
+                    ) {
+                        OutlinedTextField(
+                            value = uiState.state,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("State *") },
+                            placeholder = { Text("Select State") },
+                            leadingIcon = { Icon(Icons.Default.Map, contentDescription = null) },
+                            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = stateExpanded) },
+                            isError = uiState.stateError != null,
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .menuAnchor()
+                                .testTag("state_dropdown")
                         )
+
+                        ExposedDropdownMenu(
+                            expanded = stateExpanded,
+                            onDismissRequest = { stateExpanded = false }
+                        ) {
+                            indianStates.forEach { stateName ->
+                                DropdownMenuItem(
+                                    text = { Text(stateName) },
+                                    onClick = {
+                                        viewModel.onStateChanged(stateName)
+                                        stateExpanded = false
+                                    }
+                                )
+                            }
+                        }
                     }
                 }
+                if (uiState.stateError != null) {
+                    Text(
+                        text = uiState.stateError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
+                    )
+                }
             }
-        }
-        if (uiState.stateError != null) {
-            Text(
-                text = uiState.stateError,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
-            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // City (Manual Input below State dropdown)
-        OutlinedTextField(
-            value = uiState.city,
-            onValueChange = viewModel::onCityChanged,
-            label = { Text("City *") },
-            placeholder = { Text("e.g. Mumbai") },
-            leadingIcon = { Icon(Icons.Default.LocationCity, contentDescription = null) },
-            isError = uiState.cityError != null,
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
-            keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth().testTag("city_input")
-        )
-        if (uiState.cityError != null) {
-            Text(
-                text = uiState.cityError,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
-            )
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 200)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 200)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column {
+                OutlinedTextField(
+                    value = uiState.city,
+                    onValueChange = viewModel::onCityChanged,
+                    label = { Text("City *") },
+                    placeholder = { Text("e.g. Mumbai") },
+                    leadingIcon = { Icon(Icons.Default.LocationCity, contentDescription = null) },
+                    isError = uiState.cityError != null,
+                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+                    keyboardActions = KeyboardActions(onNext = { focusManager.moveFocus(FocusDirection.Down) }),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("city_input")
+                )
+                if (uiState.cityError != null) {
+                    Text(
+                        text = uiState.cityError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
+                    )
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Pincode (Manual Input below City field)
-        OutlinedTextField(
-            value = uiState.pincode,
-            onValueChange = viewModel::onPincodeChanged,
-            label = { Text("Pincode *") },
-            placeholder = { Text("6-digit Code (e.g. 400001)") },
-            leadingIcon = { Icon(Icons.Default.LocationOn, contentDescription = null) },
-            isError = uiState.pincodeError != null,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
-            shape = RoundedCornerShape(12.dp),
-            modifier = Modifier.fillMaxWidth().testTag("pincode_input")
-        )
-        if (uiState.pincodeError != null) {
-            Text(
-                text = uiState.pincodeError,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.labelSmall,
-                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
-            )
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 300)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 300)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column {
+                OutlinedTextField(
+                    value = uiState.pincode,
+                    onValueChange = viewModel::onPincodeChanged,
+                    label = { Text("Pincode *") },
+                    placeholder = { Text("6-digit Code (e.g. 400001)") },
+                    leadingIcon = { Icon(Icons.Default.LocationOn, contentDescription = null) },
+                    isError = uiState.pincodeError != null,
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() }),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier.fillMaxWidth().testTag("pincode_input")
+                )
+                if (uiState.pincodeError != null) {
+                    Text(
+                        text = uiState.pincodeError,
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.labelSmall,
+                        modifier = Modifier.fillMaxWidth().padding(start = 8.dp, top = 4.dp)
+                    )
+                }
+            }
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -484,27 +598,37 @@ fun LocationStep(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        Button(
-            onClick = { viewModel.completeOnboarding(onSuccess) },
-            enabled = !uiState.isLoading,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(54.dp)
-                .testTag("onboarding_step_one_complete_button"),
-            shape = RoundedCornerShape(12.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = activeColor)
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(animationSpec = tween(500, delayMillis = 400)) { it / 2 } + fadeIn(animationSpec = tween(500, delayMillis = 400)),
+            modifier = Modifier.fillMaxWidth()
         ) {
-            if (uiState.isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = Color.White,
-                    strokeWidth = 2.5.dp
-                )
-            } else {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("Complete Profile Setup", fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Icon(Icons.Default.Done, contentDescription = null)
+            Button(
+                onClick = { viewModel.completeOnboarding(onSuccess) },
+                enabled = !uiState.isLoading,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(54.dp)
+                    .graphicsLayer {
+                        scaleX = buttonScale
+                        scaleY = buttonScale
+                    }
+                    .testTag("onboarding_step_one_complete_button"),
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = activeColor)
+            ) {
+                if (uiState.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = Color.White,
+                        strokeWidth = 2.5.dp
+                    )
+                } else {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("Complete Profile Setup", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(Icons.Default.Done, contentDescription = null)
+                    }
                 }
             }
         }

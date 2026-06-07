@@ -147,17 +147,32 @@ fun DashboardScreen(viewModel: KiranaViewModel, khataViewModel: com.example.ui.k
                     rootHeight = coordinates.size.height.toFloat()
                 }
         ) {
-            when (selectedTab) {
-                0 -> HomeTab(viewModel)
-                1 -> InventoryScreen(
-                    onNavigateBack = { viewModel.selectTab(0) },
-                    showNavigationIcon = false,
-                    kiranaViewModel = viewModel
-                )
-                2 -> KhataTab(viewModel, khataViewModel)
-                3 -> MarketplaceScreen(
-                    viewModel = viewModel
-                )
+            AnimatedContent(
+                targetState = selectedTab,
+                transitionSpec = {
+                    if (targetState > initialState) {
+                        slideInHorizontally { width -> width } + fadeIn() togetherWith
+                                slideOutHorizontally { width -> -width } + fadeOut()
+                    } else {
+                        slideInHorizontally { width -> -width } + fadeIn() togetherWith
+                                slideOutHorizontally { width -> width } + fadeOut()
+                    }
+                },
+                label = "DashboardTabTransition",
+                modifier = Modifier.fillMaxSize()
+            ) { tab ->
+                when (tab) {
+                    0 -> HomeTab(viewModel)
+                    1 -> InventoryScreen(
+                        onNavigateBack = { viewModel.selectTab(0) },
+                        showNavigationIcon = false,
+                        kiranaViewModel = viewModel
+                    )
+                    2 -> KhataTab(viewModel, khataViewModel)
+                    3 -> MarketplaceScreen(
+                        viewModel = viewModel
+                    )
+                }
             }
 
             // Draggable Voice FAB shown only on Khata (tab 2)
@@ -1310,14 +1325,6 @@ fun KhataTab(viewModel: KiranaViewModel, khataViewModel: com.example.ui.khata.Kh
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    IconButton(onClick = { /* Hamburger menu action */ }) {
-                        Icon(
-                            imageVector = Icons.Default.Menu,
-                            contentDescription = "Main navigation menu",
-                            tint = primaryNavy,
-                            modifier = Modifier.size(24.dp)
-                        )
-                    }
                     Text(
                         text = "RetailDost Pro",
                         fontWeight = FontWeight.Bold,

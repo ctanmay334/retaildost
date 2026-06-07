@@ -13,6 +13,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.togetherWith
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.core.tween
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.ui.KiranaViewModel
@@ -173,29 +181,50 @@ class MainActivity : ComponentActivity() {
 
                             // ── Not authenticated → show auth screens ────────────
                             !authState.isAuthenticated -> {
-                                when (authScreen) {
-                                    AuthNav.Welcome -> WelcomeScreen(
-                                        onNavigateToLogin  = { authScreen = AuthNav.Login },
-                                        onNavigateToSignup = { authScreen = AuthNav.Signup },
-                                        viewModel          = appViewModel
-                                    )
-                                    AuthNav.Login -> LoginScreen(
-                                        onNavigateToSignup         = { authScreen = AuthNav.Signup },
-                                        onNavigateToForgotPassword = { authScreen = AuthNav.ForgotPassword },
-                                        onLoginSuccess             = { /* isAuthenticated flips → recompose */ },
-                                        onNavigateBack             = { authScreen = AuthNav.Welcome },
-                                        viewModel                  = authViewModel
-                                    )
-                                    AuthNav.Signup -> SignupScreen(
-                                        onNavigateToLogin = { authScreen = AuthNav.Login },
-                                        onSignupSuccess   = { /* isAuthenticated flips → recompose */ },
-                                        onNavigateBack    = { authScreen = AuthNav.Welcome },
-                                        viewModel         = authViewModel
-                                    )
-                                    AuthNav.ForgotPassword -> ForgotPasswordScreen(
-                                        onNavigateBack = { authScreen = AuthNav.Login },
-                                        viewModel      = authViewModel
-                                    )
+                                AnimatedContent(
+                                    targetState = authScreen,
+                                    transitionSpec = {
+                                        val isForward = when (targetState) {
+                                            AuthNav.Login -> initialState == AuthNav.Welcome
+                                            AuthNav.Signup -> initialState == AuthNav.Welcome || initialState == AuthNav.Login
+                                            AuthNav.ForgotPassword -> initialState == AuthNav.Login
+                                            AuthNav.Welcome -> false
+                                        }
+                                        if (isForward) {
+                                            slideInHorizontally { width -> width } + fadeIn() togetherWith
+                                                    slideOutHorizontally { width -> -width } + fadeOut()
+                                        } else {
+                                            slideInHorizontally { width -> -width } + fadeIn() togetherWith
+                                                    slideOutHorizontally { width -> width } + fadeOut()
+                                        }
+                                    },
+                                    label = "AuthScreenTransition",
+                                    modifier = Modifier.fillMaxSize()
+                                ) { targetAuthScreen ->
+                                    when (targetAuthScreen) {
+                                        AuthNav.Welcome -> WelcomeScreen(
+                                            onNavigateToLogin  = { authScreen = AuthNav.Login },
+                                            onNavigateToSignup = { authScreen = AuthNav.Signup },
+                                            viewModel          = appViewModel
+                                        )
+                                        AuthNav.Login -> LoginScreen(
+                                            onNavigateToSignup         = { authScreen = AuthNav.Signup },
+                                            onNavigateToForgotPassword = { authScreen = AuthNav.ForgotPassword },
+                                            onLoginSuccess             = { /* isAuthenticated flips → recompose */ },
+                                            onNavigateBack             = { authScreen = AuthNav.Welcome },
+                                            viewModel                  = authViewModel
+                                        )
+                                        AuthNav.Signup -> SignupScreen(
+                                            onNavigateToLogin = { authScreen = AuthNav.Login },
+                                            onSignupSuccess   = { /* isAuthenticated flips → recompose */ },
+                                            onNavigateBack    = { authScreen = AuthNav.Welcome },
+                                            viewModel         = authViewModel
+                                        )
+                                        AuthNav.ForgotPassword -> ForgotPasswordScreen(
+                                            onNavigateBack = { authScreen = AuthNav.Login },
+                                            viewModel      = authViewModel
+                                        )
+                                    }
                                 }
                             }
 
@@ -206,88 +235,99 @@ class MainActivity : ComponentActivity() {
 
                             // ── Authenticated → show the main app ────────────────
                             else -> {
-                                when (val screen = currentScreen) {
-                                    is Screen.Splash             -> OnboardingScreen(
-                                        onOnboardingSuccess = { appViewModel.checkOnboardingAndSync() },
-                                        onNavigateBack = {
-                                            authViewModel.logout()
-                                            appViewModel.logout()
-                                        }
-                                    )
-                                    is Screen.OnboardingHighlights -> OnboardingScreen(
-                                        onOnboardingSuccess = { appViewModel.completeOnboardingLocally() },
-                                        onNavigateBack = {
-                                            authViewModel.logout()
-                                            appViewModel.logout()
-                                        }
-                                    )
-                                    is Screen.OnboardingShopDetails -> OnboardingScreen(
-                                        onOnboardingSuccess = {
-                                            appViewModel.completeOnboardingLocally()
-                                        },
-                                        onNavigateBack = {
-                                            authViewModel.logout()
-                                            appViewModel.logout()
-                                        }
-                                    )
-                                    is Screen.Dashboard          -> DashboardScreen(appViewModel, khataViewModel)
-                                    is Screen.Inventory          -> InventoryScreen(
-                                        onNavigateBack = {
-                                            appViewModel.navigateTo(Screen.Dashboard)
-                                        },
-                                        kiranaViewModel = appViewModel
-                                    )
-                                    is Screen.AllProducts        -> AllProductsScreen(
-                                        onNavigateBack = {
-                                            appViewModel.navigateTo(Screen.Inventory)
-                                        }
-                                    )
-                                    is Screen.InventoryDetail    -> ProductDetailsScreen(
-                                        productId = screen.inventoryId,
-                                        onNavigateBack = {
-                                            appViewModel.navigateTo(Screen.Dashboard)
-                                        },
-                                        viewModel = appViewModel
-                                    )
-                                    is Screen.OcrReview          -> com.example.ui.ocr.OcrOrchestratorScreen(
-                                        isStockOut = screen.isStockOut,
-                                        onComplete = {
-                                            appViewModel.navigateTo(Screen.Inventory)
-                                        },
-                                        onNavigateBack = {
-                                            appViewModel.navigateTo(Screen.Inventory)
-                                        }
-                                    )
-                                    is Screen.Settings           -> SettingsScreen(
-                                        viewModel = appViewModel,
-                                        onLogout = {
-                                            authViewModel.logout()
-                                            appViewModel.logout()
-                                        }
-                                    )
-                                    is Screen.AddProduct         -> AddProductScreen(appViewModel)
-                                    is Screen.Notifications      -> NotificationsScreen(appViewModel)
-                                    is Screen.CustomerLedger     -> CustomerLedgerScreen(appViewModel, khataViewModel, screen.customerId)
-                                    is Screen.Marketplace        -> MarketplaceScreen(appViewModel)
-                                    is Screen.DistributorRegistration -> DistributorRegistrationScreen(appViewModel)
-                                    is Screen.RecordSale         -> RecordSaleScreen(
-                                        onNavigateBack = { appViewModel.navigateTo(Screen.Dashboard) }
-                                    )
-                                    is Screen.SalesHistory       -> SalesHistoryScreen(
-                                        onNavigateBack = { appViewModel.navigateTo(Screen.Dashboard) }
-                                    )
-                                    is Screen.Analytics          -> AnalyticsScreen(
-                                        viewModel = analyticsViewModel,
-                                        onBack = { appViewModel.navigateTo(Screen.Dashboard) }
-                                    )
-                                    is Screen.AddCustomer        -> AddCustomerScreen(
-                                        viewModel = appViewModel,
-                                        onNavigateBack = { appViewModel.navigateTo(Screen.Dashboard) }
-                                    )
-                                    is Screen.SelectContact      -> SelectContactScreen(
-                                        viewModel = appViewModel,
-                                        onNavigateBack = { appViewModel.navigateTo(screen.fromScreen) }
-                                    )
+                                AnimatedContent(
+                                    targetState = currentScreen,
+                                    transitionSpec = {
+                                        fadeIn(animationSpec = tween(220, delayMillis = 90)) + 
+                                        scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)) togetherWith
+                                        fadeOut(animationSpec = tween(90))
+                                    },
+                                    label = "MainScreenTransition",
+                                    modifier = Modifier.fillMaxSize()
+                                ) { screen ->
+                                    when (screen) {
+                                        is Screen.Splash             -> OnboardingScreen(
+                                            onOnboardingSuccess = { appViewModel.checkOnboardingAndSync() },
+                                            onNavigateBack = {
+                                                authViewModel.logout()
+                                                appViewModel.logout()
+                                            }
+                                        )
+                                        is Screen.OnboardingHighlights -> OnboardingScreen(
+                                            onOnboardingSuccess = { appViewModel.completeOnboardingLocally() },
+                                            onNavigateBack = {
+                                                authViewModel.logout()
+                                                appViewModel.logout()
+                                            }
+                                        )
+                                        is Screen.OnboardingShopDetails -> OnboardingScreen(
+                                            onOnboardingSuccess = {
+                                                appViewModel.completeOnboardingLocally()
+                                            },
+                                            onNavigateBack = {
+                                                authViewModel.logout()
+                                                appViewModel.logout()
+                                            }
+                                        )
+                                        is Screen.Dashboard          -> DashboardScreen(appViewModel, khataViewModel)
+                                        is Screen.Inventory          -> InventoryScreen(
+                                            onNavigateBack = {
+                                                appViewModel.navigateTo(Screen.Dashboard)
+                                            },
+                                            kiranaViewModel = appViewModel
+                                        )
+                                        is Screen.AllProducts        -> AllProductsScreen(
+                                            onNavigateBack = {
+                                                appViewModel.navigateTo(Screen.Inventory)
+                                            }
+                                        )
+                                        is Screen.InventoryDetail    -> ProductDetailsScreen(
+                                            productId = screen.inventoryId,
+                                            onNavigateBack = {
+                                                appViewModel.navigateTo(Screen.Dashboard)
+                                            },
+                                            viewModel = appViewModel
+                                        )
+                                        is Screen.OcrReview          -> com.example.ui.ocr.OcrOrchestratorScreen(
+                                            isStockOut = screen.isStockOut,
+                                            onComplete = {
+                                                appViewModel.navigateTo(Screen.Inventory)
+                                            },
+                                            onNavigateBack = {
+                                                appViewModel.navigateTo(Screen.Inventory)
+                                            }
+                                        )
+                                        is Screen.Settings           -> SettingsScreen(
+                                            viewModel = appViewModel,
+                                            onLogout = {
+                                                authViewModel.logout()
+                                                appViewModel.logout()
+                                            }
+                                        )
+                                        is Screen.AddProduct         -> AddProductScreen(appViewModel)
+                                        is Screen.Notifications      -> NotificationsScreen(appViewModel)
+                                        is Screen.CustomerLedger     -> CustomerLedgerScreen(appViewModel, khataViewModel, screen.customerId)
+                                        is Screen.Marketplace        -> MarketplaceScreen(appViewModel)
+                                        is Screen.DistributorRegistration -> DistributorRegistrationScreen(appViewModel)
+                                        is Screen.RecordSale         -> RecordSaleScreen(
+                                            onNavigateBack = { appViewModel.navigateTo(Screen.Dashboard) }
+                                        )
+                                        is Screen.SalesHistory       -> SalesHistoryScreen(
+                                            onNavigateBack = { appViewModel.navigateTo(Screen.Dashboard) }
+                                        )
+                                        is Screen.Analytics          -> AnalyticsScreen(
+                                            viewModel = analyticsViewModel,
+                                            onBack = { appViewModel.navigateTo(Screen.Dashboard) }
+                                        )
+                                        is Screen.AddCustomer        -> AddCustomerScreen(
+                                            viewModel = appViewModel,
+                                            onNavigateBack = { appViewModel.navigateTo(Screen.Dashboard) }
+                                        )
+                                        is Screen.SelectContact      -> SelectContactScreen(
+                                            viewModel = appViewModel,
+                                            onNavigateBack = { appViewModel.navigateTo(screen.fromScreen) }
+                                        )
+                                    }
                                 }
                             }
                         }

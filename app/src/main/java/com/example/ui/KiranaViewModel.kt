@@ -328,6 +328,7 @@ class KiranaViewModel @Inject constructor(
                 val isComplete = preferences[ONBOARDING_COMPLETE] ?: false
                 if (isComplete) {
                     _currentScreen.value = Screen.Dashboard
+                    loadProfile()
                 } else {
                     _currentScreen.value = Screen.Splash
                 }
@@ -407,6 +408,24 @@ class KiranaViewModel @Inject constructor(
 
     fun setOwnerName(name: String) {
         _ownerName.value = name
+    }
+
+    fun loadProfile() {
+        viewModelScope.launch {
+            val user = authRepository.getCurrentUser()
+            if (user != null) {
+                profileRepository.getProfile(user.id).onSuccess { profile ->
+                    if (profile != null) {
+                        _ownerName.value = profile.ownerName
+                        _storeName.value = profile.storeName
+                        _pincode.value = profile.pincode
+                        if (profile.pincode.isNotEmpty()) {
+                            _storeLocation.value = profile.pincode
+                        }
+                    }
+                }
+            }
+        }
     }
 
     fun updatePincode(pin: String) {

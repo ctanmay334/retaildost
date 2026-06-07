@@ -933,7 +933,14 @@ fun SearchResultProductCard(
                     IconButton(onClick = onDecrease, modifier = Modifier.size(24.dp).background(Color.White, CircleShape)) {
                         Icon(Icons.Default.Remove, contentDescription = "Decrease", modifier = Modifier.size(12.dp), tint = Color(0xFF475569))
                     }
-                    Text(text = cartItem.quantity.toInt().toString(), fontWeight = FontWeight.Bold, fontSize = 12.sp, color = textDark)
+                    Text(
+                        text = cartItem.quantity.toInt().toString(),
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 14.sp,
+                        color = textDark,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.widthIn(min = 24.dp)
+                    )
                     IconButton(onClick = onIncrease, modifier = Modifier.size(24.dp).background(Color.White, CircleShape)) {
                         Icon(Icons.Default.Add, contentDescription = "Increase", modifier = Modifier.size(12.dp), tint = Color(0xFF475569))
                     }
@@ -1048,7 +1055,14 @@ fun CartItemRedesignedCard(
                         IconButton(onClick = onDecrease, modifier = Modifier.size(24.dp).background(Color.White, CircleShape)) {
                             Icon(Icons.Default.Remove, contentDescription = "Decrease", modifier = Modifier.size(12.dp), tint = Color(0xFF475569))
                         }
-                        Text(text = cartItem.quantity.toInt().toString(), fontWeight = FontWeight.Bold, fontSize = 12.sp, color = textDark)
+                        Text(
+                            text = cartItem.quantity.toInt().toString(),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 14.sp,
+                            color = textDark,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.widthIn(min = 24.dp)
+                        )
                         IconButton(onClick = onIncrease, modifier = Modifier.size(24.dp).background(Color.White, CircleShape)) {
                             Icon(Icons.Default.Add, contentDescription = "Increase", modifier = Modifier.size(12.dp), tint = Color(0xFF475569))
                         }

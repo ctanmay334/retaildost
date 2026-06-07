@@ -41,6 +41,11 @@ fun SettingsScreen(viewModel: KiranaViewModel, onLogout: () -> Unit = {}) {
     val businessHours by viewModel.businessHours.collectAsState()
     val gstDetails by viewModel.gstDetails.collectAsState()
 
+    // Refresh profile data every time Settings screen is opened
+    LaunchedEffect(Unit) {
+        viewModel.loadProfile()
+    }
+
     var showSyncWarningDialog by remember { mutableStateOf(false) }
 
     var showLocationDialog by remember { mutableStateOf(false) }
@@ -118,13 +123,13 @@ fun SettingsScreen(viewModel: KiranaViewModel, onLogout: () -> Unit = {}) {
                     Spacer(modifier = Modifier.width(16.dp))
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            text = ownerName,
+                            text = ownerName.ifBlank { "Store Owner" },
                             style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = storeName,
+                            text = storeName.ifBlank { "My Kirana Store" },
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
