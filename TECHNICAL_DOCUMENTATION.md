@@ -487,7 +487,7 @@ com.example/
     ├── AutoResizingText.kt (Responsive typography scaling helper)
     ├── ImageCompressor.kt (Lossless bitmap compression helpers)
     ├── PdfHelper.kt (Prints invoice details to standard PDF formats)
-    ├── ReminderHelper.kt (FCM token reminder scheduler)
+    ├── ReminderHelper.kt (Generates payment reminder messages for WhatsApp/SMS)
     ├── ResponsiveUtils.kt (Screen size computation utils)
     ├── VoiceNlpParser.kt (Local Hinglish voice command regex extractor)
     └── WhatsAppHelper.kt (Sends payment reminders directly to phone numbers)
@@ -1439,7 +1439,7 @@ EncryptedSharedPreferences.create(
 ```
 
 ### 8.3 Network Security Config
-Not applicable. All remote communications to Supabase APIs, Google Generative Language APIs, and Firebase Cloud Messaging endpoints are strictly forced over secure SSL/TLS channels (HTTPS/WSS). Certificate pinning is managed by Google Play services updates.
+Not applicable. All remote communications to Supabase APIs and Google Generative Language APIs are strictly forced over secure SSL/TLS channels (HTTPS/WSS). Certificate pinning is managed by Google Play services updates.
 
 ### 8.4 ProGuard / R8 Rules
 To protect bytecode, obfuscate symbol tables, and optimize network model objects, the `proguard-rules.pro` config is set up:

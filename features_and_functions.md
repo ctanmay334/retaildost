@@ -18,7 +18,7 @@
 | F7 | Expiry & Low-Stock Alerts | ✗ | `alert-checker` | ✅ Cache | Free |
 | F8 | Distributor Marketplace | ✗ | ✗ | Read cache | Free |
 | F9 | Analytics Dashboard | ✅ Gemini 3.5 Flash | ✗ (in-app client) | ✗ | **Pro** |
-| F10 | Offline-First Sync | ✗ | `sync-batch` | Core infra | Free |
+| F10 | Offline-First Sync | ✗ | ✗ (client-side SyncWorker) | Core infra | Free |
 | F11 | Onboarding | ✗ | ✗ | DataStore | Free |
 | F12 | Plan / Paywall | ✗ | (server-side checks) | ✗ | Free/Pro |
 
@@ -273,32 +273,30 @@ KhataViewModel
 ### Functions
 | ID | Description |
 |---|---|
-| F7.1 | `alert-checker` Edge Function runs via pg_cron at **8 AM IST** daily |
-| F7.2 | Expiry alert: `days_to_expiry ≤ 30 AND ≥ 0` |
-| F7.3 | Low stock alert: `quantity ≤ min_threshold` |
-| F7.4 | Rows inserted into `alerts` table |
-| F7.5 | FCM push notification sent to `profiles.fcm_token` |
-| F7.6 | In-app Alerts tab: unread alerts with badge count |
+| F7.1 | `alert-checker` Edge Function runs via pg_cron at **8 AM IST** daily (backend database scan) |
+| F7.2 | Expiry alert: `days_to_expiry ≤ 30 AND ≥ 0` checked locally via `AlertCheckingWorker` and backend |
+| F7.3 | Low stock alert: `quantity ≤ min_threshold` checked locally via `AlertCheckingWorker` and backend |
+| F7.4 | Rows inserted into `alerts` table / cached locally in Room |
+| F7.5 | Local notifications dispatched on low-stock/expiry states (FCM push notification prepared on backend but client integration is pending) |
+| F7.6 | In-app Alerts/Notifications screen: unread alerts with badge count |
 | F7.7 | Tapping an alert deep-links to the inventory item |
 | F7.8 | From expiry alert: "Find Distributor" CTA → Marketplace filtered by category |
 
 ### Backend
 - **Edge Function:** `alert-checker` (pg_cron scheduled)
 - **Tables:** `alerts` (insert + read), `inventory` (read)
-- **FCM:** Firebase Cloud Messaging V1 API
+- **FCM:** Firebase Cloud Messaging V1 API (prepared on backend; client integration pending)
 - **RLS:** `alerts_all_own`
 
 ### Android Architecture
 ```
-AlertViewModel (HiltViewModel)
-  └── GetAlertsUseCase
-  │    └── AlertDao.getUnreadAlertsFlow()    [Room Flow]
+KiranaViewModel
+  └── GetAlertsUseCase (delegated to AlertDao)
   └── MarkAlertReadUseCase
   │    ├── AlertDao.markRead()               [Room]
   │    └── SupabaseClient.from("alerts").update()
-  └── KiranaFCMService (FirebaseMessagingService)
-       ├── onNewToken → updates profiles.fcm_token
-       └── onMessageReceived → AlertDao.insert() + local notification
+  └── AlertCheckingWorker (WorkManager CoroutineWorker)
+       └── Runs local checks daily and schedules local status notifications
 ```
 
 ### Screens
@@ -325,19 +323,14 @@ AlertViewModel (HiltViewModel)
 
 ### Android Architecture
 ```
-MarketplaceViewModel (HiltViewModel)
-  └── SearchDistributorsUseCase
-  │    └── MarketplaceRepository
-  │         └── SupabaseClient.from("distributors")
-  │              .filter("pincodes", "cs", "{$pincode}")
-  └── RegisterAsDistributorUseCase
-       └── MarketplaceRepository
-            └── SupabaseClient.from("distributors").insert()
+KiranaViewModel
+  └── SearchDistributorsUseCase (delegated to distributorRepository)
+  └── RegisterAsDistributorUseCase (delegated to distributorRepository)
 ```
 
 ### Screens
-- `DistributorListScreen` — search bar + results list + WhatsApp CTAs
-- `DistributorRegisterScreen` — multi-select categories + pincode input
+- `MarketplaceScreen` — search bar + distributor results list + WhatsApp CTAs
+- `DistributorRegistrationScreen` — distributor registration and category choices
 
 ---
 
@@ -363,15 +356,14 @@ MarketplaceViewModel (HiltViewModel)
 ### Android Architecture
 ```
 AnalyticsViewModel (HiltViewModel)
-  └── GetAnalyticsSummaryUseCase
-  │    └── EdgeFunctionApi.callAnalyticsSummary(store_id)
-  └── ExportCsvUseCase  [Pro only]
-       └── AnalyticsRepository
-            └── SupabaseClient queries → CSV generation
+  └── GetStoreAnalyticsUseCase (delegated to AnalyticsRepository)
+  │    └── Calculates totals, outstanding, stock alerts locally via Room
+  └── GetAiInsightsUseCase
+  │    └── GeminiClient.generateBusinessInsights(statsJson)
 ```
 
 ### Screens
-- `InsightsScreen` — KPI cards + top SKUs chart + AI insight card + blur gate
+- `AnalyticsScreen` — KPI cards + top SKUs chart + AI insight card + blur gate
 
 ---
 
@@ -383,24 +375,24 @@ AnalyticsViewModel (HiltViewModel)
 | F10.1 | All writes (Khata, Sale, Inventory) → Room DB first, then Supabase |
 | F10.2 | `offline_queue` Room table: `action_type`, `payload_json`, `idempotency_key`, `client_ts`, `sync_status` |
 | F10.3 | `SyncManager` (WorkManager PeriodicWork 15 min) processes queue when online |
-| F10.4 | Queue batched to `POST /sync-batch` Edge Function |
+| F10.4 | Queue is processed item-by-item by `SyncWorker` directly using Postgrest queries |
 | F10.5 | Idempotency key prevents duplicate processing if network drops mid-sync |
 | F10.6 | Optimistic UI: pending entries show "⏳ syncing" badge; clears on success |
 | F10.7 | After 3 retries → `sync_failed`; persistent badge + manual retry option |
 
 ### Backend
-- **Edge Function:** `sync-batch` (batch processor with per-action idempotency)
-- **Table:** `sync_queue` (server-side audit), `idempotency_keys`
+- **Edge Function:** ✗ (Uses direct Postgrest operations via Supabase SDK from the repositories)
+- **Table:** `offline_sync_queue` (server-side audit), `idempotency_keys`
 
 ### Android Architecture
 ```
-SyncManager : CoroutineWorker (WorkManager, @HiltWorker)
-  └── SyncOfflineQueueUseCase
-       ├── OfflineQueueDao.getPendingActions()
-       ├── EdgeFunctionApi.callSyncBatch(actions)
-       └── OfflineQueueDao.markSynced(idempotency_keys)
+SyncWorker : CoroutineWorker (WorkManager)
+  ├── InventoryRepository.syncPendingItems()
+  ├── OcrScannerRepository.syncPendingOcrScans()
+  ├── SaleRepository.syncPendingSales()
+  └── KhataRepository.syncPendingKhata()
 NetworkObserver (ConnectivityManager Flow)
-  └── triggers SyncManager.enqueueOneShot() on reconnect
+  └── Triggers SyncWorker execution on reconnect
 ```
 
 ### Offline Queue Action Types
@@ -433,17 +425,17 @@ NetworkObserver (ConnectivityManager Flow)
 ### Functions
 | ID | Description |
 |---|---|
-| F12.1 | `profiles.plan`: `'free'` or `'pro'` |
-| F12.2 | Free limits enforced server-side: 5 OCR scans/month, 10 WhatsApp reminders/month |
-| F12.3 | Pro CTA: Razorpay link in Chrome Custom Tab |
-| F12.4 | Post-payment: manual plan upgrade in Supabase dashboard (MVP) |
+| F12.1 | `profiles.plan`: `'free'` or `'pro'` (Defaults to `'pro'` for newly onboarded stores) |
+| F12.2 | Free limits are structured in the database schema but gating is currently bypassed client-side |
+| F12.3 | Paywall redirects immediately to upgrade plan tier in local database and remote profiles table |
+| F12.4 | Razorpay payment client integration is planned; payment is currently bypassed |
 
 ### Plan Limit Enforcement (client-side & edge validation)
 | Limit | Free | Pro | Enforced In |
 |---|---|---|---|
-| OCR scans/month | 5 | Unlimited | `ocr-invoice`, `ocr-diary` (edge) |
-| WhatsApp reminders | 10/month | Unlimited | Client-side counter |
-| Analytics Dashboard | ✗ (blurred) | ✅ | Client-side (GeminiClient) |
+| OCR scans/month | 5 | Unlimited | Prepared in backend; client currently bypassed |
+| WhatsApp reminders | 10/month | Unlimited | Client-side placeholder |
+| Analytics Dashboard | ✗ (blurred) | ✅ | Client-side checks |
 | CSV Export | ✗ | ✅ | Client-side |
 
 ---
@@ -482,23 +474,21 @@ NetworkObserver (ConnectivityManager Flow)
 | Screen | Feature | ViewModel |
 |---|---|---|
 | `LoginScreen` | F1 | `AuthViewModel` |
-| `OnboardingHighlightsScreen` | F11 | `AuthViewModel` |
-| `OnboardingShopDetailsScreen` | F1, F11 | `AuthViewModel` |
-| `DashboardScreen` | F3, F5, F7 | `HomeViewModel` |
-| `CameraScreen` | F2, F4 | `InventoryViewModel` |
-| `ReviewInvoiceScreen` | F2 | `InventoryViewModel` |
+| `OnboardingScreen` | F11 | `OnboardingViewModel` |
+| `DashboardScreen` | F3, F5, F7 | `KiranaViewModel` |
+| `OcrOrchestratorScreen` | F2, F4 | `KiranaViewModel` / `OcrViewModel` |
 | `AddProductScreen` | F2, F11 | `InventoryViewModel` |
-| `ViewAllProductsScreen` | F2 | `InventoryViewModel` |
-| `ProductDetailScreen` | F2 | `InventoryViewModel` |
+| `AllProductsScreen` | F2 | `InventoryViewModel` |
+| `ProductDetailsScreen` | F2 | `InventoryViewModel` |
 | `RecordSaleScreen` | F3 | `SaleViewModel` |
-| `SalesLogScreen` | F3 | `SaleViewModel` |
-| `KhataBookScreen` | F6 | `KhataViewModel` |
+| `SalesHistoryScreen` | F3 | `SaleViewModel` |
+| `SelectContactScreen` | F6 | `KhataViewModel` |
 | `CustomerLedgerScreen` | F5, F6 | `KhataViewModel` |
-| `AlertsScreen` | F7 | `AlertViewModel` |
-| `DistributorListScreen` | F8 | `MarketplaceViewModel` |
-| `DistributorRegisterScreen` | F8 | `MarketplaceViewModel` |
-| `InsightsScreen` | F9 | `AnalyticsViewModel` |
-| `SettingsScreen` | F1, F12 | `SettingsViewModel` |
+| `NotificationsScreen` | F7 | `KiranaViewModel` |
+| `MarketplaceScreen` | F8 | `KiranaViewModel` |
+| `DistributorRegistrationScreen` | F8 | `KiranaViewModel` |
+| `AnalyticsScreen` | F9 | `AnalyticsViewModel` |
+| `SettingsScreen` | F1, F12 | `KiranaViewModel` |
 
 ---
 
